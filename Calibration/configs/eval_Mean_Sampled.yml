@@ -1,0 +1,1654 @@
+TH1_dir: &TH1_dir "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+test_dir: &test_dir /nfs/scratch/fynu/fbury/UpgradeCalibrations/CMSSW_11_2_0_pre7/src/SimTracker/SiPhase2TimingCalibration/python/slurm/ScanPythiaGun_2021-03-20_17-11-12/output/
+mean_dir: &mean_dir /nfs/scratch/fynu/fbury/UpgradeCalibrations/CMSSW_11_2_0_pre7/src/SimTracker/SiPhase2TimingCalibration/analysis/Calibration/slurm/PythiaGunMean_2021-05-24_14-54-41/output
+
+parameters:
+  mode              : Mode
+  N                 : Events
+  threshold         : Threshold
+  thresholdsmearing : Threshold Smearing
+  tofsmearing       : ToF Smearing
+  
+hists: &hists
+  ########## Sampled ###########
+  BXHistogramSampledOffset0:
+    delay: 0.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset0.1:
+    delay: 0.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset0.2:
+    delay: 0.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset0.3:
+    delay: 0.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset0.4:
+    delay: 0.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset0.5:
+    delay: 0.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset0.6:
+    delay: 0.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset0.7:
+    delay: 0.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset0.8:
+    delay: 0.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset0.9:
+    delay: 0.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset1:
+    delay: 1.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset1.1:
+    delay: 1.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset1.2:
+    delay: 1.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset1.3:
+    delay: 1.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset1.4:
+    delay: 1.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset1.5:
+    delay: 1.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset1.6:
+    delay: 1.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset1.7:
+    delay: 1.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset1.8:
+    delay: 1.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset1.9:
+    delay: 1.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset2:
+    delay: 2.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset2.1:
+    delay: 2.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset2.2:
+    delay: 2.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset2.3:
+    delay: 2.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset2.4:
+    delay: 2.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset2.5:
+    delay: 2.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset2.6:
+    delay: 2.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset2.7:
+    delay: 2.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset2.8:
+    delay: 2.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset2.9:
+    delay: 2.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset3:
+    delay: 3.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset3.1:
+    delay: 3.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset3.2:
+    delay: 3.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset3.3:
+    delay: 3.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset3.4:
+    delay: 3.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset3.5:
+    delay: 3.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset3.6:
+    delay: 3.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset3.7:
+    delay: 3.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset3.8:
+    delay: 3.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset3.9:
+    delay: 3.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset4:
+    delay: 4.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset4.1:
+    delay: 4.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset4.2:
+    delay: 4.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset4.3:
+    delay: 4.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset4.4:
+    delay: 4.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset4.5:
+    delay: 4.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset4.6:
+    delay: 4.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset4.7:
+    delay: 4.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset4.8:
+    delay: 4.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset4.9:
+    delay: 4.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset5:
+    delay: 5.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset5.1:
+    delay: 5.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset5.2:
+    delay: 5.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset5.3:
+    delay: 5.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset5.4:
+    delay: 5.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset5.5:
+    delay: 5.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset5.6:
+    delay: 5.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset5.7:
+    delay: 5.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset5.8:
+    delay: 5.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset5.9:
+    delay: 5.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset6:
+    delay: 6.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset6.1:
+    delay: 6.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset6.2:
+    delay: 6.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset6.3:
+    delay: 6.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset6.4:
+    delay: 6.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset6.5:
+    delay: 6.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset6.6:
+    delay: 6.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset6.7:
+    delay: 6.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset6.8:
+    delay: 6.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset6.9:
+    delay: 6.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset7:
+    delay: 7.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset7.1:
+    delay: 7.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset7.2:
+    delay: 7.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset7.3:
+    delay: 7.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset7.4:
+    delay: 7.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset7.5:
+    delay: 7.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset7.6:
+    delay: 7.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset7.7:
+    delay: 7.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset7.8:
+    delay: 7.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset7.9:
+    delay: 7.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset8:
+    delay: 8.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset8.1:
+    delay: 8.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset8.2:
+    delay: 8.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset8.3:
+    delay: 8.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset8.4:
+    delay: 8.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset8.5:
+    delay: 8.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset8.6:
+    delay: 8.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset8.7:
+    delay: 8.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset8.8:
+    delay: 8.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset8.9:
+    delay: 8.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset9:
+    delay: 9.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset9.1:
+    delay: 9.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset9.2:
+    delay: 9.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset9.3:
+    delay: 9.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset9.4:
+    delay: 9.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset9.5:
+    delay: 9.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset9.6:
+    delay: 9.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset9.7:
+    delay: 9.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset9.8:
+    delay: 9.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset9.9:
+    delay: 9.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset10:
+    delay: 10.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset10.1:
+    delay: 10.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset10.2:
+    delay: 10.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset10.3:
+    delay: 10.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset10.4:
+    delay: 10.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset10.5:
+    delay: 10.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset10.6:
+    delay: 10.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset10.7:
+    delay: 10.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset10.8:
+    delay: 10.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset10.9:
+    delay: 10.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset11:
+    delay: 11.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset11.1:
+    delay: 11.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset11.2:
+    delay: 11.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset11.3:
+    delay: 11.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset11.4:
+    delay: 11.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset11.5:
+    delay: 11.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset11.6:
+    delay: 11.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset11.7:
+    delay: 11.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset11.8:
+    delay: 11.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset11.9:
+    delay: 11.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset12:
+    delay: 12.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset12.1:
+    delay: 12.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset12.2:
+    delay: 12.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset12.3:
+    delay: 12.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset12.4:
+    delay: 12.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset12.5:
+    delay: 12.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset12.6:
+    delay: 12.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset12.7:
+    delay: 12.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset12.8:
+    delay: 12.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset12.9:
+    delay: 12.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset13:
+    delay: 13.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset13.1:
+    delay: 13.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset13.2:
+    delay: 13.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset13.3:
+    delay: 13.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset13.4:
+    delay: 13.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset13.5:
+    delay: 13.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset13.6:
+    delay: 13.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset13.7:
+    delay: 13.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset13.8:
+    delay: 13.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset13.9:
+    delay: 13.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset14:
+    delay: 14.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset14.1:
+    delay: 14.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset14.2:
+    delay: 14.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset14.3:
+    delay: 14.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset14.4:
+    delay: 14.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset14.5:
+    delay: 14.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset14.6:
+    delay: 14.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset14.7:
+    delay: 14.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset14.8:
+    delay: 14.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset14.9:
+    delay: 14.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset15:
+    delay: 15.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset15.1:
+    delay: 15.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset15.2:
+    delay: 15.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset15.3:
+    delay: 15.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset15.4:
+    delay: 15.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset15.5:
+    delay: 15.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset15.6:
+    delay: 15.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset15.7:
+    delay: 15.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset15.8:
+    delay: 15.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset15.9:
+    delay: 15.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset16:
+    delay: 16.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset16.1:
+    delay: 16.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset16.2:
+    delay: 16.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset16.3:
+    delay: 16.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset16.4:
+    delay: 16.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset16.5:
+    delay: 16.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset16.6:
+    delay: 16.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset16.7:
+    delay: 16.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset16.8:
+    delay: 16.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset16.9:
+    delay: 16.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset17:
+    delay: 17.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset17.1:
+    delay: 17.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset17.2:
+    delay: 17.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset17.3:
+    delay: 17.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset17.4:
+    delay: 17.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset17.5:
+    delay: 17.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset17.6:
+    delay: 17.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset17.7:
+    delay: 17.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset17.8:
+    delay: 17.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset17.9:
+    delay: 17.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset18:
+    delay: 18.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset18.1:
+    delay: 18.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset18.2:
+    delay: 18.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset18.3:
+    delay: 18.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset18.4:
+    delay: 18.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset18.5:
+    delay: 18.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset18.6:
+    delay: 18.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset18.7:
+    delay: 18.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset18.8:
+    delay: 18.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset18.9:
+    delay: 18.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset19:
+    delay: 19.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset19.1:
+    delay: 19.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset19.2:
+    delay: 19.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset19.3:
+    delay: 19.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset19.4:
+    delay: 19.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset19.5:
+    delay: 19.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset19.6:
+    delay: 19.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset19.7:
+    delay: 19.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset19.8:
+    delay: 19.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset19.9:
+    delay: 19.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset20:
+    delay: 20.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset20.1:
+    delay: 20.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset20.2:
+    delay: 20.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset20.3:
+    delay: 20.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset20.4:
+    delay: 20.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset20.5:
+    delay: 20.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset20.6:
+    delay: 20.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset20.7:
+    delay: 20.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset20.8:
+    delay: 20.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset20.9:
+    delay: 20.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset21:
+    delay: 21.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset21.1:
+    delay: 21.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset21.2:
+    delay: 21.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset21.3:
+    delay: 21.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset21.4:
+    delay: 21.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset21.5:
+    delay: 21.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset21.6:
+    delay: 21.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset21.7:
+    delay: 21.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset21.8:
+    delay: 21.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset21.9:
+    delay: 21.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset22:
+    delay: 22.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset22.1:
+    delay: 22.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset22.2:
+    delay: 22.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset22.3:
+    delay: 22.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset22.4:
+    delay: 22.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset22.5:
+    delay: 22.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset22.6:
+    delay: 22.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset22.7:
+    delay: 22.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset22.8:
+    delay: 22.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset22.9:
+    delay: 22.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset23:
+    delay: 23.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset23.1:
+    delay: 23.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset23.2:
+    delay: 23.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset23.3:
+    delay: 23.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset23.4:
+    delay: 23.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset23.5:
+    delay: 23.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset23.6:
+    delay: 23.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset23.7:
+    delay: 23.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset23.8:
+    delay: 23.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset23.9:
+    delay: 23.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset24:
+    delay: 24.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset24.1:
+    delay: 24.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset24.2:
+    delay: 24.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset24.3:
+    delay: 24.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset24.4:
+    delay: 24.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset24.5:
+    delay: 24.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset24.6:
+    delay: 24.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset24.7:
+    delay: 24.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset24.8:
+    delay: 24.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset24.9:
+    delay: 24.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset25:
+    delay: 25.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset25.1:
+    delay: 25.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset25.2:
+    delay: 25.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset25.3:
+    delay: 25.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset25.4:
+    delay: 25.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset25.5:
+    delay: 25.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset25.6:
+    delay: 25.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset25.7:
+    delay: 25.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset25.8:
+    delay: 25.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset25.9:
+    delay: 25.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset26:
+    delay: 26.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset26.1:
+    delay: 26.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset26.2:
+    delay: 26.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset26.3:
+    delay: 26.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset26.4:
+    delay: 26.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset26.5:
+    delay: 26.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset26.6:
+    delay: 26.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset26.7:
+    delay: 26.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset26.8:
+    delay: 26.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset26.9:
+    delay: 26.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset27:
+    delay: 27.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset27.1:
+    delay: 27.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset27.2:
+    delay: 27.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset27.3:
+    delay: 27.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset27.4:
+    delay: 27.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset27.5:
+    delay: 27.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset27.6:
+    delay: 27.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset27.7:
+    delay: 27.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset27.8:
+    delay: 27.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset27.9:
+    delay: 27.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset28:
+    delay: 28.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset28.1:
+    delay: 28.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset28.2:
+    delay: 28.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset28.3:
+    delay: 28.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset28.4:
+    delay: 28.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset28.5:
+    delay: 28.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset28.6:
+    delay: 28.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset28.7:
+    delay: 28.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset28.8:
+    delay: 28.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset28.9:
+    delay: 28.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset29:
+    delay: 29.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset29.1:
+    delay: 29.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset29.2:
+    delay: 29.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset29.3:
+    delay: 29.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset29.4:
+    delay: 29.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset29.5:
+    delay: 29.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset29.6:
+    delay: 29.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset29.7:
+    delay: 29.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset29.8:
+    delay: 29.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset29.9:
+    delay: 29.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset30:
+    delay: 30.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset30.1:
+    delay: 30.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset30.2:
+    delay: 30.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset30.3:
+    delay: 30.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset30.4:
+    delay: 30.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset30.5:
+    delay: 30.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset30.6:
+    delay: 30.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset30.7:
+    delay: 30.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset30.8:
+    delay: 30.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset30.9:
+    delay: 30.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset31:
+    delay: 31.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset31.1:
+    delay: 31.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset31.2:
+    delay: 31.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset31.3:
+    delay: 31.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset31.4:
+    delay: 31.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset31.5:
+    delay: 31.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset31.6:
+    delay: 31.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset31.7:
+    delay: 31.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset31.8:
+    delay: 31.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset31.9:
+    delay: 31.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset32:
+    delay: 32.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset32.1:
+    delay: 32.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset32.2:
+    delay: 32.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset32.3:
+    delay: 32.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset32.4:
+    delay: 32.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset32.5:
+    delay: 32.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset32.6:
+    delay: 32.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset32.7:
+    delay: 32.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset32.8:
+    delay: 32.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset32.9:
+    delay: 32.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset33:
+    delay: 33.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset33.1:
+    delay: 33.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset33.2:
+    delay: 33.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset33.3:
+    delay: 33.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset33.4:
+    delay: 33.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset33.5:
+    delay: 33.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset33.6:
+    delay: 33.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset33.7:
+    delay: 33.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset33.8:
+    delay: 33.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset33.9:
+    delay: 33.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset34:
+    delay: 34.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset34.1:
+    delay: 34.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset34.2:
+    delay: 34.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset34.3:
+    delay: 34.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset34.4:
+    delay: 34.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset34.5:
+    delay: 34.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset34.6:
+    delay: 34.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset34.7:
+    delay: 34.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset34.8:
+    delay: 34.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset34.9:
+    delay: 34.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset35:
+    delay: 35.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset35.1:
+    delay: 35.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset35.2:
+    delay: 35.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset35.3:
+    delay: 35.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset35.4:
+    delay: 35.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset35.5:
+    delay: 35.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset35.6:
+    delay: 35.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset35.7:
+    delay: 35.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset35.8:
+    delay: 35.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset35.9:
+    delay: 35.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset36:
+    delay: 36.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset36.1:
+    delay: 36.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset36.2:
+    delay: 36.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset36.3:
+    delay: 36.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset36.4:
+    delay: 36.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset36.5:
+    delay: 36.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset36.6:
+    delay: 36.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset36.7:
+    delay: 36.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset36.8:
+    delay: 36.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset36.9:
+    delay: 36.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset37:
+    delay: 37.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset37.1:
+    delay: 37.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset37.2:
+    delay: 37.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset37.3:
+    delay: 37.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset37.4:
+    delay: 37.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset37.5:
+    delay: 37.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset37.6:
+    delay: 37.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset37.7:
+    delay: 37.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset37.8:
+    delay: 37.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset37.9:
+    delay: 37.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset38:
+    delay: 38.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset38.1:
+    delay: 38.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset38.2:
+    delay: 38.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset38.3:
+    delay: 38.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset38.4:
+    delay: 38.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset38.5:
+    delay: 38.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset38.6:
+    delay: 38.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset38.7:
+    delay: 38.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset38.8:
+    delay: 38.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset38.9:
+    delay: 38.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset39:
+    delay: 39.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset39.1:
+    delay: 39.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset39.2:
+    delay: 39.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset39.3:
+    delay: 39.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset39.4:
+    delay: 39.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset39.5:
+    delay: 39.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset39.6:
+    delay: 39.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset39.7:
+    delay: 39.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset39.8:
+    delay: 39.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset39.9:
+    delay: 39.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset40:
+    delay: 40.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset40.1:
+    delay: 40.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset40.2:
+    delay: 40.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset40.3:
+    delay: 40.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset40.4:
+    delay: 40.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset40.5:
+    delay: 40.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset40.6:
+    delay: 40.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset40.7:
+    delay: 40.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset40.8:
+    delay: 40.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset40.9:
+    delay: 40.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset41:
+    delay: 41.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset41.1:
+    delay: 41.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset41.2:
+    delay: 41.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset41.3:
+    delay: 41.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset41.4:
+    delay: 41.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset41.5:
+    delay: 41.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset41.6:
+    delay: 41.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset41.7:
+    delay: 41.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset41.8:
+    delay: 41.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset41.9:
+    delay: 41.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset42:
+    delay: 42.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset42.1:
+    delay: 42.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset42.2:
+    delay: 42.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset42.3:
+    delay: 42.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset42.4:
+    delay: 42.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset42.5:
+    delay: 42.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset42.6:
+    delay: 42.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset42.7:
+    delay: 42.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset42.8:
+    delay: 42.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset42.9:
+    delay: 42.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset43:
+    delay: 43.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset43.1:
+    delay: 43.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset43.2:
+    delay: 43.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset43.3:
+    delay: 43.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset43.4:
+    delay: 43.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset43.5:
+    delay: 43.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset43.6:
+    delay: 43.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset43.7:
+    delay: 43.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset43.8:
+    delay: 43.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset43.9:
+    delay: 43.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset44:
+    delay: 44.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset44.1:
+    delay: 44.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset44.2:
+    delay: 44.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset44.3:
+    delay: 44.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset44.4:
+    delay: 44.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset44.5:
+    delay: 44.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset44.6:
+    delay: 44.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset44.7:
+    delay: 44.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset44.8:
+    delay: 44.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset44.9:
+    delay: 44.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset45:
+    delay: 45.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset45.1:
+    delay: 45.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset45.2:
+    delay: 45.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset45.3:
+    delay: 45.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset45.4:
+    delay: 45.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset45.5:
+    delay: 45.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset45.6:
+    delay: 45.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset45.7:
+    delay: 45.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset45.8:
+    delay: 45.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset45.9:
+    delay: 45.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset46:
+    delay: 46.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset46.1:
+    delay: 46.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset46.2:
+    delay: 46.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset46.3:
+    delay: 46.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset46.4:
+    delay: 46.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset46.5:
+    delay: 46.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset46.6:
+    delay: 46.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset46.7:
+    delay: 46.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset46.8:
+    delay: 46.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset46.9:
+    delay: 46.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset47:
+    delay: 47.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset47.1:
+    delay: 47.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset47.2:
+    delay: 47.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset47.3:
+    delay: 47.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset47.4:
+    delay: 47.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset47.5:
+    delay: 47.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset47.6:
+    delay: 47.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset47.7:
+    delay: 47.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset47.8:
+    delay: 47.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset47.9:
+    delay: 47.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset48:
+    delay: 48.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset48.1:
+    delay: 48.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset48.2:
+    delay: 48.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset48.3:
+    delay: 48.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset48.4:
+    delay: 48.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset48.5:
+    delay: 48.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset48.6:
+    delay: 48.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset48.7:
+    delay: 48.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset48.8:
+    delay: 48.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset48.9:
+    delay: 48.9
+    dir: *TH1_dir
+  BXHistogramSampledOffset49:
+    delay: 49.0
+    dir: *TH1_dir
+  BXHistogramSampledOffset49.1:
+    delay: 49.1
+    dir: *TH1_dir
+  BXHistogramSampledOffset49.2:
+    delay: 49.2
+    dir: *TH1_dir
+  BXHistogramSampledOffset49.3:
+    delay: 49.3
+    dir: *TH1_dir
+  BXHistogramSampledOffset49.4:
+    delay: 49.4
+    dir: *TH1_dir
+  BXHistogramSampledOffset49.5:
+    delay: 49.5
+    dir: *TH1_dir
+  BXHistogramSampledOffset49.6:
+    delay: 49.6
+    dir: *TH1_dir
+  BXHistogramSampledOffset49.7:
+    delay: 49.7
+    dir: *TH1_dir
+  BXHistogramSampledOffset49.8:
+    delay: 49.8
+    dir: *TH1_dir
+  BXHistogramSampledOffset49.9:
+    delay: 49.9
+    dir: *TH1_dir
+
+scenarios:
+  - test: 
+      file: BXHistScan_N100_threshold5000_thresSmear0p0_ToFSmear0p0_harvested.root
+      dir: *test_dir
+      hists: *hists
+    evaluators:
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_0p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_1p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_2p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_3p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_4p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_5p0.root
+        dir: *mean_dir
+  - test: 
+      file: BXHistScan_N100_threshold5000_thresSmear0p0_ToFSmear1p0_harvested.root
+      dir: *test_dir
+      hists: *hists
+    evaluators:
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_0p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_1p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_2p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_3p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_4p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_5p0.root
+        dir: *mean_dir
+  - test: 
+      file: BXHistScan_N100_threshold5000_thresSmear0p0_ToFSmear2p0_harvested.root
+      dir: *test_dir
+      hists: *hists
+    evaluators:
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_0p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_1p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_2p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_3p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_4p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_5p0.root
+        dir: *mean_dir
+  - test: 
+      file: BXHistScan_N100_threshold5000_thresSmear0p0_ToFSmear3p0_harvested.root
+      dir: *test_dir
+      hists: *hists
+    evaluators:
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_0p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_1p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_2p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_3p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_4p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_5p0.root
+        dir: *mean_dir
+  - test: 
+      file: BXHistScan_N100_threshold5000_thresSmear0p0_ToFSmear4p0_harvested.root
+      dir: *test_dir
+      hists: *hists
+    evaluators:
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_0p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_1p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_2p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_3p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_4p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_5p0.root
+        dir: *mean_dir
+  - test: 
+      file: BXHistScan_N100_threshold5000_thresSmear0p0_ToFSmear5p0_harvested.root
+      dir: *test_dir
+      hists: *hists
+    evaluators:
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_0p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_1p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_2p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_3p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_4p0.root
+        dir: *mean_dir
+      - method: MeanEvaluator
+        file: Mean_mode_Sampled_N_100_threshold_5000p0_thresholdsmearing_0p0_tofsmearing_5p0.root
+        dir: *mean_dir
+
