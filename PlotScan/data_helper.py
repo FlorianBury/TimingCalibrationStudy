@@ -352,7 +352,6 @@ class Data:
         arr = np.full(shape, np.nan)
         arr[tuple(grouped.index.codes)] = grouped.values.flat
         labels = {level.name:level.values for level in grouped.index.levels}
-        print ('Produced observable object of "{}"'.format(observable))
         return Observable(arr,labels,observable)
 
     @classmethod

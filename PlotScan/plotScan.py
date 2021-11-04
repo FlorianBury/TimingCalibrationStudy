@@ -6,110 +6,124 @@ import ROOT
 import argparse
 import enlighten
 import itertools
+import logging
 from pprint import pprint
 from copy import copy,deepcopy
+from IPython import embed
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib import cm
+import multiprocessing as mp
 
 from data_helper import Data, Observable
+from yamlLoader import parseYaml
 
-class PlotScan:
-    def __init__(self,path,suffix,files,hists,parameters,efficiency,**kwargs):
-        self.path           = path
-        self.files          = files
-        self.suffix         = suffix
-        self.hists          = hists
-        self.parameters     = parameters
-        self.efficiency     = efficiency
-        self.content        = []
-        #self.cache          = os.path.join(os.path.abspath(os.path.dirname(__file__)),'cache','cache_{}.npy')
-        self.cache          = os.path.join(os.path.abspath(os.path.dirname(__file__)),'cache','cache_{}.pkl'.format(self.suffix))
-        self.observables = ['Efficiency','Out-of-time fraction','Mean','Next BX contamination','Previous BX contamination']
-        self.limits = {'Efficiency'             : (0.,1.),
-                       'Out-of-time fraction'   : (0.,1.),
-                       'Mean'                   : (-1.,1.),
-                       'Next BX contamination'  : (0.,1.),
-                       'Previous BX contamination'  : (0.,1.)}
 
-        self._getRootFiles()
+OUTPUT_PATH = '/home/ucl/cp3/fbury/scratch/UpgradeCalibrations/slurm/scans'
 
-    def _getRootFiles(self):
 
-        if not os.path.exists(self.cache):
-            print('Not all cache files are present, will process root files')
-            for f in self.files.keys():
-                if not os.path.exists(os.path.join(self.path,f)):
-                    print ('Could not find file : {}'.format(os.path.join(self.path,f)))
-            pbar = enlighten.Counter(total=len(self.files.keys()), desc='Progress', unit='files')
-            i = 0
-            for f,params in self.files.items():
-                pbar.update()
-                hDict = self._getHistograms(os.path.join(self.path,f))
-                effDict,contNextDict,contPrevDict = self._getEfficiency(os.path.join(self.path,f))
+class FileProcessor:
+    def __init__(self,hists,efficiency,parameters):
+        self.hists      = hists
+        self.efficiency = efficiency
+        self.parameters = parameters
 
-                for h,values in hDict.items():
-                    if values['type'] == 'TH1':
-                        entry = {k:v for k,v in zip(self.parameters,params)}
-                        entry.update(values)
-                        entry['Efficiency'] = effDict[values['mode']][values['delay']]
-                        entry['Next BX contamination'] = contNextDict[values['mode']][values['delay']]
-                        entry['Previous BX contamination'] = contPrevDict[values['mode']][values['delay']]
-                        fo,fo_err = self._fracOutHisto(h)
-                        entry['Out-of-time fraction'] = fo
-                        entry['Out-of-time fraction error'] = fo_err
-                        m,m_err = self._meanHisto(h)
-                        entry['Mean'] = m
-                        entry['Mean error'] = m_err
-                        
-                        self.content.append(entry)
-            df = pd.DataFrame(self.content)
-            df.to_pickle(self.cache)
-            print ('Saved cache in {}'.format(self.cache))
-
-        else:
-            df = pd.read_pickle(self.cache)
-            print ('Loaded cache from {}'.format(self.cache))
-        self.data = Data(df)
-        self.data.SetParameters(self.parameters + ['delay'])
-
-    def _getHistograms(self,f):
+    def __call__(self,f):
+        # Open file #
+        if not os.path.exists(f):
+            raise RuntimeError(f'File {f} does not exist')
         F = ROOT.TFile(f)
         #ROOT.SetOwnership(F,False)
-        histDict = {}
+
+        # Get file parameters #
+        params = self._getParameters(F)
+        # Produce efficiency hist#
+        h_eff = self._getEfficiencyHist(F)
+
+        # Loop over each histogram #
+        content = []
         for name,values in self.hists.items():
-            h = deepcopy(F.Get(values['dir']+"/"+name))
-            histDict[h] = {k:v for k,v in values.items() if k!='dir'}
+            # Initialize entry #
+            entry = {k:v for k,v in params.items()}
+            entry.update(values)
+            delay = values['delay']
+
+            # Get efficiency #
+            eff,contNext,contPrev = self._getEfficiencyValues(h_eff,delay)
+            entry['Efficiency'] = eff
+            entry['Next BX contamination'] = contNext
+            entry['Previous BX contamination'] = contPrev
+
+            # Get histogram #
+            h = self._getHistogram(F,values['dir'],name)
+
+            # Get content in numpy arrays #
+            e,w,s = self._getHistContent(h)
+
+            # Compute additional info based on histogram #
+            fo,fo_err = self._fracOutHisto(e,w,s)
+            entry['Out-of-time fraction'] = fo
+            entry['Out-of-time fraction error'] = fo_err
+            m,m_err = self._meanHisto(e,w,s)
+            entry['Mean'] = m
+            entry['Mean error'] = m_err
+
+            # Save entry in content #
+            content.append(entry)
+
+        # Close file #
         F.Close()
-        return histDict
 
-    def _getEfficiency(self,f):
-        F = ROOT.TFile(f)
-        effDict = {mode:{} for mode in self.efficiency.keys()}
-        contNextDict = {mode:{} for mode in self.efficiency.keys()}
-        contPrevDict = {mode:{} for mode in self.efficiency.keys()}
-        for mode,d in self.efficiency.items():
-            trueName = d['dir'] + '/' + d['truth']
-            recoName = d['dir'] + '/' + d['reco']
-            h_true = F.Get(trueName)
-            h_reco = F.Get(recoName)
-            h_eff = h_reco.Clone("Eff")
-            h_eff.Divide(h_true)
-            bin_center  = h_eff.GetXaxis().FindBin(0)
-            bin_next    = h_eff.GetXaxis().FindBin(1)
-            bin_prev    = h_eff.GetXaxis().FindBin(-1)
-            for y in range(1,h_eff.GetNbinsY()+1):
-                delay = round(h_eff.GetYaxis().GetBinCenter(y),1)
-                effDict[mode][delay] = h_eff.GetBinContent(bin_center,y)
-                contNextDict[mode][delay] = h_eff.GetBinContent(bin_next,y)
-                contPrevDict[mode][delay] = h_eff.GetBinContent(bin_prev,y)
+        # return #
+        return content
 
-        F.Close()
-        return effDict,contNextDict,contPrevDict
-        
+    @staticmethod
+    def _getHistogram(F,dirPath,name):
+        # Get through subdirectories by recurrence #
+        subdir = F
+        for sub in dirPath.split('/'):
+            if not hasattr(subdir,sub):
+                raise RuntimeError(f'Could not find subdirectory {sub} from {subdir} in file {F}')
+            subdir = getattr(subdir,sub)
+        if not subdir.GetListOfKeys().FindObject(name):
+            raise RuntimeError(f'Could not find histogram {name} from subdir {subdir} in file {F}')
+        return subdir.Get(name) 
 
+    def _getParameters(self,F):
+        params = {}
+        for pFile,pName in self.parameters.items():
+            if not F.GetListOfKeys().FindObject(pFile):
+                raise RuntimeError(f'Could not find parameter {pFile} in file {F}')
+            params[pName] = float(F.Get(pFile).GetTitle())
+        return params
+            
+    def _getEfficiencyHist(self,F):
+        trueName = os.path.join(self.efficiency['dir'],self.efficiency['truth'])
+        recoName = os.path.join(self.efficiency['dir'],self.efficiency['reco'])
+        h_true = self._getHistogram(F,self.efficiency['dir'],self.efficiency['truth'])
+        h_reco = self._getHistogram(F,self.efficiency['dir'],self.efficiency['reco'])
+        h_true = F.Get(trueName)
+        h_reco = F.Get(recoName)
+        h_eff = h_reco.Clone("Eff")
+        h_eff.Divide(h_true)
+        return h_eff
+
+    @staticmethod
+    def _getEfficiencyValues(h_eff,delay):
+        # Get the bins we are interested in #
+        bin_delay   = h_eff.GetYaxis().FindBin(delay)
+        bin_center  = h_eff.GetXaxis().FindBin(0)
+        bin_next    = h_eff.GetXaxis().FindBin(1)
+        bin_prev    = h_eff.GetXaxis().FindBin(-1)
+        # Compute values #
+        eff         = h_eff.GetBinContent(bin_center,bin_delay) # Efficiency for this BX
+        contNext    = h_eff.GetBinContent(bin_next,bin_delay)   # Contamination in next BX
+        contPrev    = h_eff.GetBinContent(bin_prev,bin_delay)   # Contamination in previous BX
+
+        return eff,contNext,contPrev
+    
     @staticmethod
     def _getHistContent(h):
         e = [h.GetXaxis().GetBinUpEdge(0)]
@@ -121,35 +135,91 @@ class PlotScan:
             s.append(h.GetBinError(i))
         return np.array(e),np.array(w),np.array(s)
  
-    def _fracOutHisto(self,h): 
-        e,w,s = self._getHistContent(h)
+    @staticmethod
+    def _fracOutHisto(e,w,s):
         c = (e[:-1]+e[1:])/2
         idx = np.delete(np.arange(w.shape[0]),np.abs(c).argmin())
         return w[idx].sum()/w.sum(),np.sqrt((s[idx]**2).sum())/w.sum()
 
-    def _meanHisto(self,h): 
-        e,w,s = self._getHistContent(h)
+    @staticmethod
+    def _meanHisto(e,w,s):
         c = (e[:-1]+e[1:])/2
         return (w*c).sum()/w.sum(),np.sqrt(((s*c)**2).sum())/w.sum()
-    
-    def _makeArray(self,var):
-        axNames = self.parameters + ['delay']
-        df = self.df[axNames+[var]]
-        grouped = df.groupby(axNames)[var].mean()
-        shape = tuple(map(len, grouped.index.levels))
-        arr = np.full(shape, np.nan)
-        arr[tuple(grouped.index.codes)] = grouped.values.flat
-        labels = {level.name:level.values for level in grouped.index.levels}
-        print ('Produced array for variable {}'.format(var))
-        return Data(arr,labels)
+ 
+
+
+class PlotScan:
+    def __init__(self,path,suffix,files,hists,parameters,efficiency,jobs,force,**kwargs):
+        self.files          = [os.path.join(path,f) for f in files]
+        self.suffix         = suffix
+        self.parameters     = parameters
+        self.jobs           = jobs
+        self.force          = force
+        self.content        = []
+        self.cache          = os.path.join(OUTPUT_PATH,'cache','cache_{}.pkl'.format(self.suffix))
+        self.observables = ['Efficiency',
+                            'Out-of-time fraction',
+                            'Mean',
+                            'Next BX contamination',
+                            'Previous BX contamination']
+        self.limits = {'Efficiency'                 : (0.,1.),
+                       'Out-of-time fraction'       : (0.,1.),
+                       'Mean'                       : (-1.,1.),
+                       'Next BX contamination'      : (0.,1.),
+                       'Previous BX contamination'  : (0.,1.)}
+
+        self.processor = FileProcessor(hists,efficiency,parameters)
+
+        self._getFullContent()
+
+    def _getFullContent(self):
+
+        if not os.path.exists(self.cache) or self.force:
+            if self.force:
+                logging.info('Forcing recreation of the cache')
+            else:
+                logging.info('No cache file present, will process root files')
+
+            # Just check that files are there #
+            for f in self.files:
+                if not os.path.exists(f):
+                    logging.warning('Could not find file : {f}')
+
+            pbar = enlighten.Counter(total=len(self.files), desc='Progress', unit='files')
+            # Serial working #
+            if self.jobs is None:
+                for f in self.files:
+                    self.content.extend(self.processor(f))
+                    pbar.update()
+            # Parallel working #
+            else:
+                pool = mp.Pool(self.jobs)
+                for content in pool.imap(self.processor,self.files):
+                    pbar.update()
+                    self.content.extend(content)
+                    
+            df = pd.DataFrame(self.content)
+            df.to_pickle(self.cache)
+            logging.info(f'Saved cache in {self.cache}')
+
+        else:
+            df = pd.read_pickle(self.cache)
+            logging.info(f'Loaded cache from {self.cache}')
+        logging.info('Producing data object from the pandas datafare')
+        self.data = Data(df)
+        logging.info('... done')
+        self.data.SetParameters(list(self.parameters.values()) + ['delay'])
 
     def Plots(self):
-        from IPython import embed
+        path_plots = os.path.join(OUTPUT_PATH,'plots',self.suffix)
+        if not os.path.exists(path_plots):
+            os.makedirs(path_plots)
         for obsName in self.observables:
             observable = self.data.GetObservable(obsName)
-            for param in self.parameters:
-                print ("Plotting {} curves of {} parameter".format(obsName,param))
-                with PdfPages('pdf/curves_{}_{}_{}.pdf'.format(self.suffix,obsName,param).replace(' ','')) as pdf:
+            for param in self.parameters.values():
+                logging.info(f"Plotting {obsName} curves of {param} parameter")
+                pdfPath = os.path.join(path_plots,f'curves_{obsName}_{param}.pdf'.replace(' ',''))
+                with PdfPages(pdfPath) as pdf:
                     labels_to_vary = {key:observable.GetLabels()[key] for key in observable.GetLabels().keys() if key != param and key != 'delay'}
 
                     for comb in itertools.product(*list(labels_to_vary.values())):
@@ -171,10 +241,10 @@ class PlotScan:
                         plt.xlabel('Delay [ns]',fontsize=18,labelpad=20)
                         plt.ylabel(obsName,fontsize=18,labelpad=10)
                         plt.ylim(self.limits[obsName])
-                        title = '{} curves\n('.format(param)+','.join(['{} = {}'.format(p,v) for p,v in varied_labels.items()])+')'
+                        title = f'{param} curves\n({", ".join([f"{p} = {v}" for p,v in varied_labels.items()])})'
                         plt.title(title,fontsize=20,pad=25)
                         plt.tick_params(axis='both', which='major', labelsize=14)
-                        print ('\t'+title)
+                        logging.info('... '+title.replace("\n"," : "))
                         pdf.savefig()
                         plt.close()
 
@@ -192,19 +262,37 @@ class PlotScan:
                         pdf.savefig()
                         plt.close()
 
+
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Produce datacards')
     parser.add_argument('--yaml', action='store', required=True, type=str,
                         help='Yaml containing parameters')
+    parser.add_argument('--custom', action='store', required=False, default=None, nargs='*',
+                        help='Format the yaml file')
+    parser.add_argument('-v','--verbose', action='store_true', required=False, default=False,
+                        help='Verbose mode')
+    parser.add_argument('--cache', action='store_true', required=False, default=False,
+                        help='Force recreation of the cache (and no plots)')
+    parser.add_argument('-j','--jobs', action='store', required=False, default=None, type=int,
+                        help='Number of jobs for multiprocessing')
     args = parser.parse_args()
 
+    logging.basicConfig(level   = logging.DEBUG,
+                        format  = '%(asctime)s - %(levelname)s - %(message)s',
+                        datefmt = '%m/%d/%Y %H:%M:%S')
+
+    # Verbose level #
+    if not args.verbose:
+        logging.getLogger().setLevel(logging.INFO)
 
     if args.yaml is None:
         raise RuntimeError("Must provide the YAML file")
-    with open(args.yaml,'r') as handle:
-        f = yaml.load(handle,Loader=yaml.FullLoader)
+    f = parseYaml(args.yaml,args.custom)
 
-    instance = PlotScan(**f)
-    instance.Plots()
+    instance = PlotScan(**f,jobs=args.jobs,force=args.cache)
+    if not args.cache:
+        instance.Plots()
 
 
