@@ -1,6 +1,0 @@
-truth: HitsTrueNumberScan{mode}
-reco:  OffsetScan{mode}
-dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist2D"
-
-
-
