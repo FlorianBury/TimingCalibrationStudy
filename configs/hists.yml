@@ -1,0 +1,1505 @@
+########   TH1    ########
+BXHistogram{mode}Offset0p000000:
+  delay: 0.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset0p100000:
+  delay: 0.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset0p200000:
+  delay: 0.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset0p300000:
+  delay: 0.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset0p400000:
+  delay: 0.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset0p500000:
+  delay: 0.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset0p600000:
+  delay: 0.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset0p700000:
+  delay: 0.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset0p800000:
+  delay: 0.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset0p900000:
+  delay: 0.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1p000000:
+  delay: 1.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1p100000:
+  delay: 1.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1p200000:
+  delay: 1.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1p300000:
+  delay: 1.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1p400000:
+  delay: 1.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1p500000:
+  delay: 1.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1p600000:
+  delay: 1.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1p700000:
+  delay: 1.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1p800000:
+  delay: 1.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1p900000:
+  delay: 1.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2p000000:
+  delay: 2.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2p100000:
+  delay: 2.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2p200000:
+  delay: 2.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2p300000:
+  delay: 2.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2p400000:
+  delay: 2.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2p500000:
+  delay: 2.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2p600000:
+  delay: 2.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2p700000:
+  delay: 2.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2p800000:
+  delay: 2.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2p900000:
+  delay: 2.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3p000000:
+  delay: 3.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3p100000:
+  delay: 3.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3p200000:
+  delay: 3.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3p300000:
+  delay: 3.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3p400000:
+  delay: 3.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3p500000:
+  delay: 3.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3p600000:
+  delay: 3.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3p700000:
+  delay: 3.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3p800000:
+  delay: 3.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3p900000:
+  delay: 3.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4p000000:
+  delay: 4.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4p100000:
+  delay: 4.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4p200000:
+  delay: 4.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4p300000:
+  delay: 4.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4p400000:
+  delay: 4.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4p500000:
+  delay: 4.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4p600000:
+  delay: 4.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4p700000:
+  delay: 4.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4p800000:
+  delay: 4.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4p900000:
+  delay: 4.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5p000000:
+  delay: 5.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5p100000:
+  delay: 5.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5p200000:
+  delay: 5.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5p300000:
+  delay: 5.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5p400000:
+  delay: 5.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5p500000:
+  delay: 5.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5p600000:
+  delay: 5.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5p700000:
+  delay: 5.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5p800000:
+  delay: 5.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5p900000:
+  delay: 5.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6p000000:
+  delay: 6.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6p100000:
+  delay: 6.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6p200000:
+  delay: 6.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6p300000:
+  delay: 6.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6p400000:
+  delay: 6.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6p500000:
+  delay: 6.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6p600000:
+  delay: 6.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6p700000:
+  delay: 6.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6p800000:
+  delay: 6.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6p900000:
+  delay: 6.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7p000000:
+  delay: 7.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7p100000:
+  delay: 7.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7p200000:
+  delay: 7.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7p300000:
+  delay: 7.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7p400000:
+  delay: 7.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7p500000:
+  delay: 7.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7p600000:
+  delay: 7.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7p700000:
+  delay: 7.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7p800000:
+  delay: 7.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7p900000:
+  delay: 7.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8p000000:
+  delay: 8.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8p100000:
+  delay: 8.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8p200000:
+  delay: 8.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8p300000:
+  delay: 8.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8p400000:
+  delay: 8.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8p500000:
+  delay: 8.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8p600000:
+  delay: 8.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8p700000:
+  delay: 8.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8p800000:
+  delay: 8.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8p900000:
+  delay: 8.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9p000000:
+  delay: 9.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9p100000:
+  delay: 9.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9p200000:
+  delay: 9.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9p300000:
+  delay: 9.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9p400000:
+  delay: 9.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9p500000:
+  delay: 9.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9p600000:
+  delay: 9.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9p700000:
+  delay: 9.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9p800000:
+  delay: 9.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9p900000:
+  delay: 9.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10p000000:
+  delay: 10.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10p100000:
+  delay: 10.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10p200000:
+  delay: 10.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10p300000:
+  delay: 10.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10p400000:
+  delay: 10.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10p500000:
+  delay: 10.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10p600000:
+  delay: 10.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10p700000:
+  delay: 10.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10p800000:
+  delay: 10.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10p900000:
+  delay: 10.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11p000000:
+  delay: 11.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11p100000:
+  delay: 11.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11p200000:
+  delay: 11.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11p300000:
+  delay: 11.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11p400000:
+  delay: 11.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11p500000:
+  delay: 11.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11p600000:
+  delay: 11.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11p700000:
+  delay: 11.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11p800000:
+  delay: 11.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11p900000:
+  delay: 11.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12p000000:
+  delay: 12.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12p100000:
+  delay: 12.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12p200000:
+  delay: 12.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12p300000:
+  delay: 12.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12p400000:
+  delay: 12.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12p500000:
+  delay: 12.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12p600000:
+  delay: 12.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12p700000:
+  delay: 12.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12p800000:
+  delay: 12.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12p900000:
+  delay: 12.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13p000000:
+  delay: 13.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13p100000:
+  delay: 13.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13p200000:
+  delay: 13.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13p300000:
+  delay: 13.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13p400000:
+  delay: 13.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13p500000:
+  delay: 13.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13p600000:
+  delay: 13.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13p700000:
+  delay: 13.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13p800000:
+  delay: 13.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13p900000:
+  delay: 13.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14p000000:
+  delay: 14.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14p100000:
+  delay: 14.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14p200000:
+  delay: 14.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14p300000:
+  delay: 14.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14p400000:
+  delay: 14.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14p500000:
+  delay: 14.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14p600000:
+  delay: 14.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14p700000:
+  delay: 14.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14p800000:
+  delay: 14.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14p900000:
+  delay: 14.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15p000000:
+  delay: 15.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15p100000:
+  delay: 15.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15p200000:
+  delay: 15.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15p300000:
+  delay: 15.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15p400000:
+  delay: 15.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15p500000:
+  delay: 15.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15p600000:
+  delay: 15.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15p700000:
+  delay: 15.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15p800000:
+  delay: 15.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15p900000:
+  delay: 15.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16p000000:
+  delay: 16.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16p100000:
+  delay: 16.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16p200000:
+  delay: 16.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16p300000:
+  delay: 16.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16p400000:
+  delay: 16.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16p500000:
+  delay: 16.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16p600000:
+  delay: 16.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16p700000:
+  delay: 16.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16p800000:
+  delay: 16.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16p900000:
+  delay: 16.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17p000000:
+  delay: 17.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17p100000:
+  delay: 17.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17p200000:
+  delay: 17.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17p300000:
+  delay: 17.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17p400000:
+  delay: 17.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17p500000:
+  delay: 17.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17p600000:
+  delay: 17.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17p700000:
+  delay: 17.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17p800000:
+  delay: 17.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17p900000:
+  delay: 17.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18p000000:
+  delay: 18.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18p100000:
+  delay: 18.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18p200000:
+  delay: 18.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18p300000:
+  delay: 18.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18p400000:
+  delay: 18.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18p500000:
+  delay: 18.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18p600000:
+  delay: 18.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18p700000:
+  delay: 18.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18p800000:
+  delay: 18.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18p900000:
+  delay: 18.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19p000000:
+  delay: 19.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19p100000:
+  delay: 19.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19p200000:
+  delay: 19.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19p300000:
+  delay: 19.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19p400000:
+  delay: 19.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19p500000:
+  delay: 19.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19p600000:
+  delay: 19.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19p700000:
+  delay: 19.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19p800000:
+  delay: 19.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19p900000:
+  delay: 19.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20p000000:
+  delay: 20.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20p100000:
+  delay: 20.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20p200000:
+  delay: 20.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20p300000:
+  delay: 20.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20p400000:
+  delay: 20.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20p500000:
+  delay: 20.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20p600000:
+  delay: 20.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20p700000:
+  delay: 20.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20p800000:
+  delay: 20.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20p900000:
+  delay: 20.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21p000000:
+  delay: 21.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21p100000:
+  delay: 21.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21p200000:
+  delay: 21.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21p300000:
+  delay: 21.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21p400000:
+  delay: 21.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21p500000:
+  delay: 21.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21p600000:
+  delay: 21.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21p700000:
+  delay: 21.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21p800000:
+  delay: 21.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21p900000:
+  delay: 21.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22p000000:
+  delay: 22.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22p100000:
+  delay: 22.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22p200000:
+  delay: 22.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22p300000:
+  delay: 22.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22p400000:
+  delay: 22.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22p500000:
+  delay: 22.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22p600000:
+  delay: 22.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22p700000:
+  delay: 22.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22p800000:
+  delay: 22.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22p900000:
+  delay: 22.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23p000000:
+  delay: 23.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23p100000:
+  delay: 23.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23p200000:
+  delay: 23.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23p300000:
+  delay: 23.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23p400000:
+  delay: 23.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23p500000:
+  delay: 23.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23p600000:
+  delay: 23.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23p700000:
+  delay: 23.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23p800000:
+  delay: 23.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23p900000:
+  delay: 23.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24p000000:
+  delay: 24.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24p100000:
+  delay: 24.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24p200000:
+  delay: 24.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24p300000:
+  delay: 24.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24p400000:
+  delay: 24.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24p500000:
+  delay: 24.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24p600000:
+  delay: 24.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24p700000:
+  delay: 24.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24p800000:
+  delay: 24.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24p900000:
+  delay: 24.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25p000000:
+  delay: 25.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25p100000:
+  delay: 25.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25p200000:
+  delay: 25.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25p300000:
+  delay: 25.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25p400000:
+  delay: 25.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25p500000:
+  delay: 25.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25p600000:
+  delay: 25.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25p700000:
+  delay: 25.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25p800000:
+  delay: 25.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25p900000:
+  delay: 25.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26p000000:
+  delay: 26.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26p100000:
+  delay: 26.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26p200000:
+  delay: 26.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26p300000:
+  delay: 26.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26p400000:
+  delay: 26.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26p500000:
+  delay: 26.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26p600000:
+  delay: 26.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26p700000:
+  delay: 26.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26p800000:
+  delay: 26.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26p900000:
+  delay: 26.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27p000000:
+  delay: 27.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27p100000:
+  delay: 27.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27p200000:
+  delay: 27.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27p300000:
+  delay: 27.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27p400000:
+  delay: 27.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27p500000:
+  delay: 27.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27p600000:
+  delay: 27.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27p700000:
+  delay: 27.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27p800000:
+  delay: 27.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27p900000:
+  delay: 27.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28p000000:
+  delay: 28.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28p100000:
+  delay: 28.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28p200000:
+  delay: 28.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28p300000:
+  delay: 28.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28p400000:
+  delay: 28.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28p500000:
+  delay: 28.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28p600000:
+  delay: 28.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28p700000:
+  delay: 28.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28p800000:
+  delay: 28.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28p900000:
+  delay: 28.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29p000000:
+  delay: 29.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29p100000:
+  delay: 29.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29p200000:
+  delay: 29.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29p300000:
+  delay: 29.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29p400000:
+  delay: 29.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29p500000:
+  delay: 29.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29p600000:
+  delay: 29.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29p700000:
+  delay: 29.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29p800000:
+  delay: 29.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29p900000:
+  delay: 29.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30p000000:
+  delay: 30.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30p100000:
+  delay: 30.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30p200000:
+  delay: 30.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30p300000:
+  delay: 30.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30p400000:
+  delay: 30.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30p500000:
+  delay: 30.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30p600000:
+  delay: 30.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30p700000:
+  delay: 30.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30p800000:
+  delay: 30.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30p900000:
+  delay: 30.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31p000000:
+  delay: 31.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31p100000:
+  delay: 31.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31p200000:
+  delay: 31.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31p300000:
+  delay: 31.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31p400000:
+  delay: 31.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31p500000:
+  delay: 31.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31p600000:
+  delay: 31.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31p700000:
+  delay: 31.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31p800000:
+  delay: 31.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31p900000:
+  delay: 31.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32p000000:
+  delay: 32.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32p100000:
+  delay: 32.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32p200000:
+  delay: 32.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32p300000:
+  delay: 32.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32p400000:
+  delay: 32.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32p500000:
+  delay: 32.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32p600000:
+  delay: 32.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32p700000:
+  delay: 32.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32p800000:
+  delay: 32.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32p900000:
+  delay: 32.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33p000000:
+  delay: 33.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33p100000:
+  delay: 33.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33p200000:
+  delay: 33.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33p300000:
+  delay: 33.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33p400000:
+  delay: 33.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33p500000:
+  delay: 33.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33p600000:
+  delay: 33.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33p700000:
+  delay: 33.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33p800000:
+  delay: 33.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33p900000:
+  delay: 33.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34p000000:
+  delay: 34.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34p100000:
+  delay: 34.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34p200000:
+  delay: 34.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34p300000:
+  delay: 34.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34p400000:
+  delay: 34.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34p500000:
+  delay: 34.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34p600000:
+  delay: 34.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34p700000:
+  delay: 34.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34p800000:
+  delay: 34.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34p900000:
+  delay: 34.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35p000000:
+  delay: 35.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35p100000:
+  delay: 35.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35p200000:
+  delay: 35.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35p300000:
+  delay: 35.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35p400000:
+  delay: 35.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35p500000:
+  delay: 35.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35p600000:
+  delay: 35.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35p700000:
+  delay: 35.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35p800000:
+  delay: 35.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35p900000:
+  delay: 35.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36p000000:
+  delay: 36.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36p100000:
+  delay: 36.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36p200000:
+  delay: 36.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36p300000:
+  delay: 36.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36p400000:
+  delay: 36.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36p500000:
+  delay: 36.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36p600000:
+  delay: 36.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36p700000:
+  delay: 36.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36p800000:
+  delay: 36.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36p900000:
+  delay: 36.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37p000000:
+  delay: 37.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37p100000:
+  delay: 37.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37p200000:
+  delay: 37.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37p300000:
+  delay: 37.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37p400000:
+  delay: 37.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37p500000:
+  delay: 37.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37p600000:
+  delay: 37.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37p700000:
+  delay: 37.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37p800000:
+  delay: 37.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37p900000:
+  delay: 37.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38p000000:
+  delay: 38.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38p100000:
+  delay: 38.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38p200000:
+  delay: 38.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38p300000:
+  delay: 38.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38p400000:
+  delay: 38.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38p500000:
+  delay: 38.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38p600000:
+  delay: 38.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38p700000:
+  delay: 38.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38p800000:
+  delay: 38.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38p900000:
+  delay: 38.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39p000000:
+  delay: 39.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39p100000:
+  delay: 39.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39p200000:
+  delay: 39.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39p300000:
+  delay: 39.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39p400000:
+  delay: 39.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39p500000:
+  delay: 39.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39p600000:
+  delay: 39.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39p700000:
+  delay: 39.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39p800000:
+  delay: 39.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39p900000:
+  delay: 39.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40p000000:
+  delay: 40.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40p100000:
+  delay: 40.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40p200000:
+  delay: 40.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40p300000:
+  delay: 40.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40p400000:
+  delay: 40.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40p500000:
+  delay: 40.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40p600000:
+  delay: 40.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40p700000:
+  delay: 40.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40p800000:
+  delay: 40.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40p900000:
+  delay: 40.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41p000000:
+  delay: 41.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41p100000:
+  delay: 41.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41p200000:
+  delay: 41.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41p300000:
+  delay: 41.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41p400000:
+  delay: 41.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41p500000:
+  delay: 41.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41p600000:
+  delay: 41.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41p700000:
+  delay: 41.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41p800000:
+  delay: 41.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41p900000:
+  delay: 41.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42p000000:
+  delay: 42.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42p100000:
+  delay: 42.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42p200000:
+  delay: 42.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42p300000:
+  delay: 42.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42p400000:
+  delay: 42.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42p500000:
+  delay: 42.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42p600000:
+  delay: 42.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42p700000:
+  delay: 42.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42p800000:
+  delay: 42.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42p900000:
+  delay: 42.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43p000000:
+  delay: 43.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43p100000:
+  delay: 43.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43p200000:
+  delay: 43.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43p300000:
+  delay: 43.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43p400000:
+  delay: 43.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43p500000:
+  delay: 43.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43p600000:
+  delay: 43.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43p700000:
+  delay: 43.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43p800000:
+  delay: 43.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43p900000:
+  delay: 43.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44p000000:
+  delay: 44.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44p100000:
+  delay: 44.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44p200000:
+  delay: 44.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44p300000:
+  delay: 44.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44p400000:
+  delay: 44.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44p500000:
+  delay: 44.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44p600000:
+  delay: 44.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44p700000:
+  delay: 44.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44p800000:
+  delay: 44.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44p900000:
+  delay: 44.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45p000000:
+  delay: 45.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45p100000:
+  delay: 45.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45p200000:
+  delay: 45.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45p300000:
+  delay: 45.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45p400000:
+  delay: 45.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45p500000:
+  delay: 45.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45p600000:
+  delay: 45.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45p700000:
+  delay: 45.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45p800000:
+  delay: 45.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45p900000:
+  delay: 45.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46p000000:
+  delay: 46.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46p100000:
+  delay: 46.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46p200000:
+  delay: 46.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46p300000:
+  delay: 46.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46p400000:
+  delay: 46.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46p500000:
+  delay: 46.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46p600000:
+  delay: 46.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46p700000:
+  delay: 46.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46p800000:
+  delay: 46.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46p900000:
+  delay: 46.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47p000000:
+  delay: 47.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47p100000:
+  delay: 47.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47p200000:
+  delay: 47.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47p300000:
+  delay: 47.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47p400000:
+  delay: 47.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47p500000:
+  delay: 47.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47p600000:
+  delay: 47.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47p700000:
+  delay: 47.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47p800000:
+  delay: 47.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47p900000:
+  delay: 47.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48p000000:
+  delay: 48.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48p100000:
+  delay: 48.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48p200000:
+  delay: 48.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48p300000:
+  delay: 48.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48p400000:
+  delay: 48.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48p500000:
+  delay: 48.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48p600000:
+  delay: 48.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48p700000:
+  delay: 48.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48p800000:
+  delay: 48.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48p900000:
+  delay: 48.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49p000000:
+  delay: 49.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49p100000:
+  delay: 49.1
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49p200000:
+  delay: 49.2
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49p300000:
+  delay: 49.3
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49p400000:
+  delay: 49.4
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49p500000:
+  delay: 49.5
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49p600000:
+  delay: 49.6
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49p700000:
+  delay: 49.7
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49p800000:
+  delay: 49.8
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49p900000:
+  delay: 49.9
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset50p000000:
+  delay: 50.0
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+

@@ -1,0 +1,4 @@
+[console_scripts]
+BXRun = timeCal.utils.BXRun:main
+plotScan = timeCal.PlotScan.plotScan:main
+runCalibration = timeCal.Calibration.runCalibration:main

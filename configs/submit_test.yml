@@ -1,0 +1,5 @@
+threshold: [5000,6000]
+thresholdsmearing: [0.0]
+tofsmearing: [0.0]
+N: 1
+script: PUCalibration_cfg.py

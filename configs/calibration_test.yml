@@ -1,0 +1,25 @@
+template_dir: &template_dir /home/ucl/cp3/fbury/scratch/UpgradeCalibrations/slurm/production/PUScan_N_1000_2022-03-01_23-11-48/output/
+suffix: PU_scan_{mode}
+
+parameters:
+  N                 : Events
+  threshold         : Threshold
+  thresholdsmearing : Threshold Smearing
+  tofsmearing       : ToF Smearing
+
+scenarios:
+  - test: 
+      file: BXHistScan_N_1000_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
+      dir: *template_dir
+      hists: !include hists.yml
+    evaluators:
+      - method: MeanEvaluator
+        file: BXHistScan_N_1000_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: MorphingEvaluator
+        file: BXHistScan_N_1000_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+
+        

@@ -1,0 +1,154 @@
+BXHistogram{mode}Offset0:
+  delay: 0.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset1:
+  delay: 1.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset2:
+  delay: 2.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset3:
+  delay: 3.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset4:
+  delay: 4.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset5:
+  delay: 5.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset6:
+  delay: 6.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset7:
+  delay: 7.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset8:
+  delay: 8.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset9:
+  delay: 9.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset10:
+  delay: 10.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset11:
+  delay: 11.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset12:
+  delay: 12.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset13:
+  delay: 13.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset14:
+  delay: 14.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset15:
+  delay: 15.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset16:
+  delay: 16.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset17:
+  delay: 17.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset18:
+  delay: 18.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset19:
+  delay: 19.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset20:
+  delay: 20.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset21:
+  delay: 21.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset22:
+  delay: 22.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset23:
+  delay: 23.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset24:
+  delay: 24.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset25:
+  delay: 25.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset26:
+  delay: 26.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset27:
+  delay: 27.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset28:
+  delay: 28.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset29:
+  delay: 29.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset30:
+  delay: 30.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset31:
+  delay: 31.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset32:
+  delay: 32.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset33:
+  delay: 33.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset34:
+  delay: 34.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset35:
+  delay: 35.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset36:
+  delay: 36.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset37:
+  delay: 37.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset38:
+  delay: 38.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset39:
+  delay: 39.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset40:
+  delay: 40.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset41:
+  delay: 41.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset42:
+  delay: 42.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset43:
+  delay: 43.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset44:
+  delay: 44.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset45:
+  delay: 45.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset46:
+  delay: 46.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset47:
+  delay: 47.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset48:
+  delay: 48.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset49:
+  delay: 49.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+BXHistogram{mode}Offset50:
+  delay: 50.
+  dir: "DQMData/Run 1/Ph2TkBXHist/Run summary/Hist1D"
+
