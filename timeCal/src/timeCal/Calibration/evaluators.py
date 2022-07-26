@@ -16,6 +16,14 @@ import numpy as np
 from ..utils.environment import getEnv
 from ..utils.context import TFileOpen
 
+from .interpolation import Interpolation
+from ..PlotScan.data_helper import Observable
+
+#ROOT.gInterpreter.ProcessLine(f'#include "{os.path.join(path,"morhing.h")}"')
+
+DELTA_COARSE = 1.
+DELTA_FINE   = 0.01
+
 #*******************************************************#
 #                    Base evaluator                     #
 #*******************************************************#
@@ -32,7 +40,6 @@ class BaseEvaluator:
         self.objDict    = objDict
 
     def __call__(self,hist,return_graphs=False):
-        hist.Scale(1/hist.Integral()) 
 
         decimals = lambda x : str(x)[::-1].find('.')
 
@@ -43,30 +50,36 @@ class BaseEvaluator:
         chi2Coarse -= chi2Coarse.min()
         # TODO -> scan between 1 and 1 limits in chi2
 
-        # Get two minimums #
-        idxMin = min(delayCoarse.shape[0]-2,max(1,chi2Coarse.argmin()))
-        #idxTwoMins = np.sort(np.argpartition(chi2Coarse,2)[:2])
-        x1 = delayCoarse[idxMin-1]
-        x2 = delayCoarse[idxMin]
-        x3 = delayCoarse[idxMin+1]
-        y1 = chi2Coarse[idxMin-1]
-        y2 = chi2Coarse[idxMin]
-        y3 = chi2Coarse[idxMin+1]
-        denom = (x1 - x2)*(x1 - x3)*(x2 - x3)
-        a = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom
-        b = (x3**2 * (y1 - y2) + x2**2 * (y3 - y1) + x1**2 * (y2 - y3)) / denom
-        c = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom
-        if a <= 0.: # parabola should be pointed upwards
-            xmin = delayCoarse[chi2Coarse.argmin()]
-        else:
-            xmin = min(50.,max(0.,-b/(2*a)))
-
-        logging.debug(f"Found three points around minimum : [{x1:0.5f},{x2:0.5f},{x3:0.5f}] with values [{y1:0.5f},{y2:0.5f},{y3:0.5f}]")
-        logging.info(f"Coarse estimated minimum : {xmin:0.5f}")
+#        # Get two minimums #
+#        idxMin = min(delayCoarse.shape[0]-2,max(1,chi2Coarse.argmin()))
+#        #idxTwoMins = np.sort(np.argpartition(chi2Coarse,2)[:2])
+#        x1 = delayCoarse[idxMin-1]
+#        x2 = delayCoarse[idxMin]
+#        x3 = delayCoarse[idxMin+1]
+#        y1 = chi2Coarse[idxMin-1]
+#        y2 = chi2Coarse[idxMin]
+#        y3 = chi2Coarse[idxMin+1]
+#        denom = (x1 - x2)*(x1 - x3)*(x2 - x3)
+#        a = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom
+#        b = (x3**2 * (y1 - y2) + x2**2 * (y3 - y1) + x1**2 * (y2 - y3)) / denom
+#        c = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom
+#        if a <= 0.: # parabola should be pointed upwards
+#            xmin = delayCoarse[chi2Coarse.argmin()]
+#        else:
+#            xmin = min(50.,max(0.,-b/(2*a)))
+#
+#        logging.debug(f"Found three points around minimum : [{x1:0.5f},{x2:0.5f},{x3:0.5f}] with values [{y1:0.5f},{y2:0.5f},{y3:0.5f}]")
+#        logging.debug(f"Coarse estimated minimum : {xmin:0.5f}")
 
         # Fine scan #
-        delayStart = max(0.,xmin-DELTA_COARSE)
-        delayStop  = min(50.,xmin+DELTA_COARSE)
+#        delayStart = max(0.,xmin-DELTA_COARSE)
+#        delayStop  = min(50.,xmin+DELTA_COARSE)
+
+        delayStart = max(0.,delayCoarse[chi2Coarse<=1.].min()-DELTA_COARSE)
+        delayStop  = min(50.,delayCoarse[chi2Coarse<=1.].max()+DELTA_COARSE)
+        if delayStart == delayStop:
+            delayStart = delayCoarse[chi2Coarse.argmin()]-DELTA_COARSE
+            delayStop  = delayCoarse[chi2Coarse.argmin()]+DELTA_COARSE
         logging.debug(f"Starting fine scan : [{delayStart:0.5f},{delayStop:0.5f}] with step {DELTA_FINE:0.5f}")
         delayFine = np.arange(delayStart,delayStop,DELTA_FINE).round(decimals(DELTA_FINE))
         chi2Fine = self.scan(hist,delayFine)
@@ -78,18 +91,49 @@ class BaseEvaluator:
         gCoarse.SetTitle(";Test delay [ns];#chi^{2} value")
         gFine.SetTitle(";Test delay [ns];#chi^{2} value")
         numerical_min = delayFine[np.argmin(chi2Fine)]
-        sigma = self._findSigma(gFine)
-        logging.info("Numerical = {}, fit = {} +/- {}".format(numerical_min,fit_min,sigma))
+        logging.debug(f"Found minimum at {numerical_min}")
+        x_minus, x_plus = self._findSigma(gFine)
+        logging.debug(f"Best value : {numerical_min} - {x_minus} + {x_plus}")
         if return_graphs:
-            return numerical_min,sigma,gCoarse,gFine
+            return numerical_min,x_minus,x_plus,gCoarse,gFine
         else:
-            return numerical_min,sigma
+            return numerical_min,x_minus,x_plus
 
 
     @staticmethod
     def _findSigma(graph):
         # TODO : find range of X in which chi2 <= 1
-        raise NotImplementedError
+
+        x = np.linspace(graph.GetX()[0],graph.GetX()[graph.GetN()-1],10000)
+        y = np.array([graph.Eval(xi) for xi in x])
+        left_idx  = np.arange(0,np.where(y==y.min())[0][0])
+        right_idx = np.arange(np.where(y==y.min())[0][-1],y.shape[0])
+
+        x_left  = x[np.argmin(abs(y[left_idx]-1.))] if left_idx.shape[0]>0 else 0.
+        x_right = x[np.argmin(abs(y[right_idx]-1.)) + right_idx[0]] if right_idx.shape[0]>0 else 0.
+
+        x_min = x[y.argmin()]
+
+        return x_min-x_left,x_right-x_min
+
+#        graph.Fit("pol2","SQR","",x1,x2)
+#        fit = graph.GetListOfFunctions().FindObject("pol2")
+#        c = fit.GetParameter(0)
+#        b = fit.GetParameter(1)
+#        a = fit.GetParameter(2)
+#        f = lambda x : a*x**2+b*x+c
+#        if a <= 0. : 
+#            return None,50.
+#        xmin = -b/(2*a)
+#        ymin = f(xmin)
+#        x1 = (-b-math.sqrt(4*a))/(2*a)
+#        x2 = (-b+math.sqrt(4*a))/(2*a)
+#        assert f(x1)-ymin-1 < 1e-9
+#        assert f(x2)-ymin-1 < 1e-9
+#        sigma = x2-x1
+#        return xmin,sigma
+
+
 
     def scan(self,recoHist,delayRange):
         raise NotImplementedError
@@ -140,8 +184,8 @@ class BaseEvaluator:
         objDict = cls.makeEvaluator(delayDict)
         # Make object instance #
         instance = cls(params,objDict)
-        # Save #
-        instance.save()
+        ## Save #
+        #instance.save()
 
         # Return 
         return instance
@@ -191,13 +235,13 @@ class BaseEvaluator:
     #              LOAD PART              #
     #######################################
     @classmethod
-    def load(cls):
-        f = cls.get_evaluator_path(self.params)
+    def load(cls,params):
+        f = cls.get_evaluator_path(params)
         # Open file #
-        if cls.check_evaluator_file():
+        if cls.check_evaluator_file(params):
             with TFileOpen(f,'r') as F:
-                # Get parameters #
-                params = cls.getParameters(F,self.parameters)
+                ## Get parameters #
+                #params = cls.getParameters(F,self.parameters)
                 # Load the objects # 
                 objDict = deepcopy(cls.loadObjects(F))
             # Return object #
@@ -220,7 +264,8 @@ class BaseEvaluator:
         return os.path.join(getEnv()['paths']['calibration'],
                             'evaluators',
                             cls._evaluatorName,
-                            "_".join([f"{pName}_{pVal}" for pName,pVal in params.items()]).replace('.','p')).replace(' ','_')
+                            "_".join([f"{pName}_{pVal}" for pName,pVal in params.items()]).replace('.','p').replace(' ','_')+'.root')
+                            
 
     @classmethod
     def check_evaluator_file(cls,params):
@@ -228,6 +273,21 @@ class BaseEvaluator:
         return os.path.exists(path)
 
 
+    def makeIllustrationPlot(self):
+        """
+            Produce an illustration of the method
+            Returns : illustration object
+        """
+        raise NotImplementedError
+
+    @classmethod
+    def makeIllustrationPlotStandalone(cls,delayDict):
+        """
+            Produce an illustration of the method from standalone (only the delay dict)
+            -> can be obtained even without reconstructing the evaluator
+            Returns : illustration object
+        """
+        raise NotImplementedError
 
 
 #*******************************************************#
@@ -269,6 +329,26 @@ class MeanEvaluator(BaseEvaluator):
             mean_true = mGraph.Eval(delayRange[i])
             chi2.append((mean_reco-mean_true)**2/mean_reco_err)
         return np.array(chi2)
+
+
+    
+    @classmethod
+    def _editIllustrationPlot(cls,graph):
+        graph.GetHistogram().SetTitle('')
+        graph.GetHistogram().GetXaxis().SetTitle('Delay [ns]')
+        graph.GetHistogram().GetYaxis().SetTitle('Mean of BX histogram')
+        graph.SetLineWidth(2)
+        return graph
+    
+    def makeIllustrationPlot(self):
+        return self.__class__._editIllustrationPlot(self.objDict['mean'])
+
+    @classmethod
+    def makeIllustrationPlotStandalone(cls,delayDict):
+        objDict = cls.makeEvaluator(delayDict)
+        graph = objDict['mean']
+        return cls._editIllustrationPlot(graph)
+        
 
 
 #*******************************************************#
@@ -400,33 +480,99 @@ class MorphingEvaluator(BaseEvaluator):
             self.bxidVar.SetVal(binCenter)
             trueHist.SetBinContent(ibin,morphing.getVal(self.normSet))
         
-        #trueHist = self.morphing.createHistogram(f"trueHist{delay:.5f}",self.bxidVar) # Slow 
         return trueHist
   
+#*******************************************************#
+#           Linear interpolation evaluator              #
+#*******************************************************#
+            
+class LinearInterpolationEvaluator(BaseEvaluator):
+    _evaluatorName = 'LinearInterpolation'
 
-#if __name__ == "__main__":
-#        parser = argparse.ArgumentParser(description='Produce template morphings')
-#        parser.add_argument('--yaml', action='store', required=True, type=str, 
-#                            help='Yaml containing parameters')
-#        parser.add_argument('--submit', action='store', required=False, type=str, default=None,
-#                            help='Name for submission')
-#        parser.add_argument('--split', action='store', required=False, type=int, default=None,
-#                            help='Number of files per job')
-#        parser.add_argument('--debug', action='store_true', required=False, default=False,
-#                            help='Debug for submit jobs')
-#        args = parser.parse_args()
-#
-#        if args.submit is not None and args.split is not None:
-#            from utils import submit
-#            submit(args.yaml,args.submit,args.split,['*.root'],['files'],args.debug)
-#        else:
-#            clsmembers = {clsName:cls for clsName,cls in inspect.getmembers(sys.modules[__name__], inspect.isclass)}
-#            with open(args.yaml,'r') as handle:
-#                f = yaml.load(handle,Loader=yaml.FullLoader)
-#            evaluator = f['evaluator']
-#            if evaluator not in clsmembers.keys():
-#                raise RuntimeError(f"Evaluator {evaluator} class not present in this file")
-#            cls = clsmembers[evaluator]
-#            instance = cls(**f)
-#
+    @staticmethod
+    def makeEvaluator(delayDict):
+        """
+            delayDict [dict] = {delay value [float] : BX ID histogram [TH1F]}
+        """
+        return {'delayDict':delayDict}
+
+    def saveObjects(self,F):
+        for delay,hist in self.objDict['delayDict'].items():
+            hist.Write(f'hist_{delay}')
+
+    @staticmethod
+    def loadObjects(F):
+        objDict = {'delayDict':{}}
+        for key in F.GetListOfKeys():
+            if key.GetName().startswith('hist'):
+                name = key.GetName()
+                h = F.Get(key.GetName())
+                objDict['delayDict'][float(name.replace('hist_',''))] = h
+        return objDict
+
+    def scan(self,recoHist,delayRange):
+        chi2 = []
+        # Loop over the delay range required #
+        for delay in delayRange:
+            if delay in self.objDict['delayDict'].keys():
+                # Hist already in content #
+                trueHist = self.objDict['delayDict'][delay]
+            else:
+                # Find two closest point #
+                #delays = np.sort(np.array(list(self.objDict['delayDict'].keys())))
+                delays = np.array(list(self.objDict['delayDict'].keys()))
+                closest_delay = delays[np.argmin(abs(delays-delay))]
+                if closest_delay < delay:
+                    # Search on the right #
+                    remaining_delays = delays[delays>closest_delay]
+                    next_closest_delay = remaining_delays[np.argmin(abs(remaining_delays-delay))]
+                    delayLeft  = closest_delay
+                    delayRight = next_closest_delay
+                else:
+                    # Search on the left #
+                    remaining_delays = delays[delays<closest_delay]
+                    next_closest_delay = remaining_delays[np.argmin(abs(remaining_delays-delay))]
+                    delayLeft  = next_closest_delay
+                    delayRight = closest_delay
+                assert delayLeft <= delay and delay <= delayRight
+                interpolation = Interpolation(delayLeft,delayRight,delay)
+                trueHist = interpolation(self.objDict['delayDict'][delayLeft],self.objDict['delayDict'][delayRight],f'hist_{delay}')
+                self.objDict['delayDict'][delay] = trueHist
+
+            #print ('------')
+            #print ([trueHist.GetBinContent(i) for i in range(1,12)])
+            #print (delay,recoHist.Chi2Test(trueHist,"UU CHI2"))
+            chi2.append(recoHist.Chi2Test(trueHist,"UU CHI2/NDF"))
+        return np.array(chi2)
+
+    @classmethod
+    def _make2DPlot(cls,delayDict):
+        delays = np.array(list(delayDict.keys()))
+        delays.sort()
+        h_dummy = delayDict[delays[0]]
+        x_edges = np.array([h_dummy.GetXaxis().GetBinLowEdge(i) for i in range(1,h_dummy.GetNbinsX()+2)],dtype=np.float32)
+        diffs = np.diff(delays)/2
+        y_edges = Observable._getEdgesFromCenters(delays).astype(np.float32)
+        h2D = ROOT.TH2F('h2D','h2D',
+                        len(x_edges)-1,
+                        x_edges,
+                        len(y_edges)-1,
+                        y_edges)
+        for iy,delay in enumerate(delays,1):
+            h = delayDict[delay]
+            for ix in range(1,h.GetNbinsX()+1):
+                h2D.SetBinContent(ix,iy,h.GetBinContent(ix))
+        h2D.GetXaxis().SetTitle('BX')
+        h2D.GetYaxis().SetTitle('Delay [ns]')
+        h2D.GetZaxis().SetTitle('Events')
+        return h2D
+    
+    def makeIllustrationPlot(self):
+        return self.__class__._make2DPlot(self.objDict['delayDict'])
+
+    @classmethod
+    def makeIllustrationPlotStandalone(cls,delayDict):
+        return cls._make2DPlot(delayDict)
+        
+
 
