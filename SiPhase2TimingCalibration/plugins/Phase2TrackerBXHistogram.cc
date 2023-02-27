@@ -34,18 +34,25 @@ Description: Test pixel digis.
 #include "Geometry/TrackerGeometryBuilder/interface/TrackerGeometry.h"
 #include "Geometry/CommonDetUnit/interface/GeomDet.h"
 #include "Geometry/CommonDetUnit/interface/TrackerGeomDet.h"
-#include "Geometry/TrackerGeometryBuilder/interface/PixelGeomDetUnit.h"
-#include "Geometry/TrackerGeometryBuilder/interface/PixelGeomDetType.h"
-#include "Geometry/TrackerGeometryBuilder/interface/StripGeomDetUnit.h"
-#include "Geometry/TrackerGeometryBuilder/interface/StripGeomDetType.h"
+//#include "Geometry/TrackerGeometryBuilder/interface/PixelGeomDetUnit.h"
+//#include "Geometry/TrackerGeometryBuilder/interface/PixelGeomDetType.h"
+//#include "Geometry/TrackerGeometryBuilder/interface/StripGeomDetUnit.h"
+//#include "Geometry/TrackerGeometryBuilder/interface/StripGeomDetType.h"
+
+// DataFormats
+#include "DataFormats/SiStripDetId/interface/SiStripDetId.h"
 #include "DataFormats/SiStripDetId/interface/StripSubdetector.h"
 #include "DataFormats/TrackerCommon/interface/TrackerTopology.h"
+#include "DataFormats/Phase2TrackerDigi/interface/Phase2TrackerDigi.h"
+#include "DataFormats/GeometryCommonDetAlgo/interface/MeasurementPoint.h"
 
+#include "SimDataFormats/Track/interface/SimTrackContainer.h"
 #include "SimDataFormats/TrackingHit/interface/PSimHitContainer.h"
 #include "SimDataFormats/CrossingFrame/interface/MixCollection.h"
 
 // DQM Histograming
 #include "DQMServices/Core/interface/MonitorElement.h"
+#include "DQMServices/Core/interface/DQMStore.h"
 #include "TF1.h"
 #include "TTree.h"
 
@@ -77,9 +84,12 @@ Phase2TrackerBXHistogram::Phase2TrackerBXHistogram(const edm::ParameterSet& iCon
     tParticleSrc_(config_.getParameter<edm::InputTag>("TrackingTruthSource")),
     tParticleToken_(consumes<std::vector<TrackingParticle> >(tParticleSrc_)),
     simTrackToken_(consumes<edm::SimTrackContainer>(simTrackSrc_)),
+    topoToken_(esConsumes<TrackerTopology, TrackerTopologyRcd>()),
+    geomToken_(esConsumes<TrackerGeometry, TrackerDigiGeometryRecord>(edm::ESInputTag{"", geomType_})),
     pulseShapeParameters_(config_.getParameter<std::vector<double>>("PulseShapeParameters")),
     use_mixing_(config_.getParameter<bool>("UseMixing")),
     mode_(config_.getParameter<std::string>("Mode")),
+    subdet_(config_.getParameter<std::string>("Subdetector")),
     bx_range_(config_.getParameter<int>("BXRange")),
     deadTime_(config_.getParameter<double>("CBCDeadTime")),
     pTCut_(config_.getParameter<double>("PTCut")),
@@ -102,8 +112,8 @@ Phase2TrackerBXHistogram::Phase2TrackerBXHistogram(const edm::ParameterSet& iCon
             mixSimHitTokens_.push_back(std::make_pair(itag,consumes<CrossingFrame<PSimHit>>(itag)));
     }
     else{
-    for(const auto& itag : pSimHitSrc_) 
-        simHitTokens_.push_back(std::make_pair(itag,consumes< edm::PSimHitContainer >(itag)));
+        for(const auto& itag : pSimHitSrc_) 
+            simHitTokens_.push_back(std::make_pair(itag,consumes< edm::PSimHitContainer >(itag)));
     }
 
 
@@ -122,6 +132,13 @@ Phase2TrackerBXHistogram::Phase2TrackerBXHistogram(const edm::ParameterSet& iCon
     if (mode_ != "scan" && mode_ != "emulate"){
         throw std::invalid_argument("Mode "+mode_+" not understood");
     }
+
+    if (dims_per_subdet.find(subdet_) == dims_per_subdet.end()) {
+        throw std::invalid_argument("Subdetector "+subdet_+" not understood");
+    } else {
+        dimensions_ = dims_per_subdet[subdet_];
+    }
+
 
  
 }
@@ -192,21 +209,28 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
         fireRandom_ = false;
     }
     // Tracker Topology 
-    iSetup.get<TrackerTopologyRcd>().get(tTopoHandle_);
+    const TrackerTopology* tTopo = &iSetup.getData(topoToken_); 
+    const TrackerGeometry* tGeom;
+    //iSetup.get<TrackerTopologyRcd>().get(tTopoHandle_);
+    //const TrackerTopology* tTopo = tTopoHandle_.product();
+    //const TrackerGeometry* tGeom = geomHandle_.product();  
 
     edm::ESWatcher<TrackerDigiGeometryRecord> theTkDigiGeomWatcher;
 
     if (theTkDigiGeomWatcher.check(iSetup)) {
-        iSetup.get<TrackerDigiGeometryRecord>().get(geomType_, geomHandle_);
+        tGeom = &iSetup.getData(geomToken_); 
     }  
-    if (!geomHandle_.isValid()) return;
+    else
+        return;
 
-    edm::ESHandle<GeometricDet> rDD;
-    iSetup.get<IdealGeometryRecord>().get(geomType_,rDD);
+    // Particle containers 
+    //edm::ESHandle<GeometricDet> rDD;
+    //iSetup.get<IdealGeometryRecord>().get(geomType_,rDD);
     iEvent.getByToken(tParticleToken_, tParticleHandle_);
     iEvent.getByToken(simTrackToken_, simTrackHandle_);
 
     if (tParticleHandle_.isValid()) {
+        std::cout <<"TrackingParticle handle valid" <<std::endl;
         if (verbosity_>0){
             std::cout << "Loop over TrackingParticle particles"<<std::endl;
             unsigned int ival = 0;
@@ -221,6 +245,7 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
     }
 
     if (simTrackHandle_.isValid()) { 
+        std::cout <<"SimTrack handle valid" <<std::endl;
         if (verbosity_>0){
             std::cout << "Loop over SimTrack particles"<<std::endl;
             for (edm::SimTrackContainer::const_iterator simTrkItr = simTrackHandle_->begin(); simTrkItr != simTrackHandle_->end();    ++simTrkItr) {
@@ -234,8 +259,6 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
         std::cout <<"SimTrack handle not valid" <<std::endl;
     }
 
-    const TrackerTopology* tTopo = tTopoHandle_.product();
-    const TrackerGeometry* tGeom = geomHandle_.product();  
 
     for(std::vector<double>::iterator offset = offset_scan_.begin(); offset != offset_scan_.end(); ++offset) {
         if (verbosity_>1){
@@ -309,6 +332,16 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
             }
         }
     }
+
+    // Final printout for debug purposes //
+    if (verbosity_ > 1){
+        for (const std::pair<double, HistModes> &it :  offsetBX_){
+            const double offset = it.first;
+            HistModes hist_mode = it.second;
+            std::cout << "Offset = "<<offset<<" Sampled (Integral="<<hist_mode.Sampled->integral()<<",Mean="<<hist_mode.Sampled->getMean()<<")"<<" Latched (Integral="<<hist_mode.Latched->integral()<<",Mean="<<hist_mode.Latched->getMean()<<")"<<std::endl;
+        }
+
+    }
 }
 
 //
@@ -361,8 +394,17 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
 
     /* Layer and geometry */
     int layer = tTopo->getOTLayerNumber(rawid);
-    if (verbosity_ > 1)
-        std::cout << " rawid " << rawid << " layer " << layer << std::endl;
+    if (verbosity_ > 1){
+        std::cout << " rawid " << rawid << " layer " << layer ; // << std::endl;
+        if (detId.subdetId() == SiStripDetId::SubDetector::TIB)
+            std::cout<<" subdet TIB"<<std::endl;
+        if (detId.subdetId() == SiStripDetId::SubDetector::TID)
+            std::cout<<" subdet TID"<<std::endl;
+        if (detId.subdetId() == SiStripDetId::SubDetector::TOB)
+            std::cout<<" subdet TOB"<<std::endl;
+        if (detId.subdetId() == SiStripDetId::SubDetector::TEC)
+            std::cout<<" subdet TEC"<<std::endl;
+    }
     if (layer < 0) return;
     const GeomDet *geomDet = tGeom->idToDet(detId);
     if (!geomDet){
@@ -383,12 +425,31 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
         std::cout << " BX # " << bx_true << " Event number " << event << " Raw Id "<< rawid << " Track Id  " << tkid << " Track Pt " << tkpt <<" Time Of Flight " << tof  << " X pos " <<  pdPos.x() << " Y pos " <<  pdPos.y() << " Z pos " << pdPos.z() << " R pos " <<  std::hypot(pdPos.x(),pdPos.y())  << " time_to_detid_ns " << time_to_detid_ns <<" tof " << tof << " toa " << toa << " charge " << charge <<std::endl; 
     }
 
+
     if (tkpt <= pTCut_){
         if (verbosity_>1){
             std::cout <<"PT "<<tkpt<<" below cut at "<<pTCut_<<" -> dismissed"<<std::endl; 
         }
         return;
     }
+
+    if (std::hypot(pdPos.x(),pdPos.y()) < dimensions_.first.first || std::hypot(pdPos.x(),pdPos.y()) > dimensions_.first.second){
+        if (verbosity_>1){
+            std::cout <<"R pos outside ["<<dimensions_.first.first<<","<<dimensions_.first.second<<"]"<<std::endl;
+        }
+        return;
+    }
+
+    if (fabs(pdPos.z()) < dimensions_.second.first || fabs(pdPos.z()) > dimensions_.second.second){
+        if (verbosity_>1){
+            std::cout <<"Z pos outside ["<<dimensions_.second.first<<","<<dimensions_.second.second<<"]"<<std::endl;
+        }
+        return;
+    }
+
+    hits_positions_.positions3D->Fill(pdPos.z(),pdPos.x(),pdPos.y());
+    hits_positions_.positions2D->Fill(pdPos.z(),std::hypot(pdPos.x(),pdPos.y())*((pdPos.y()>=0)-(pdPos.y()<0)));
+    hits_positions_.positions2DAbs->Fill(fabs(pdPos.z()),std::hypot(pdPos.x(),pdPos.y()));
 
     int attSampled = 0;
     int attLatched = 0;
@@ -471,7 +532,26 @@ void Phase2TrackerBXHistogram::bookHistograms(DQMStore::IBooker & ibooker,edm::R
                                           (2*bx_range_)+1,-static_cast<float>(bx_range_)-0.5,static_cast<float>(bx_range_)+0.5,
                                           offset_scan_.size(),offset_min_-(offset_step_/2),offset_max_+(offset_step_/2));
 
+    /* Hit positions */
+    HistoName.str("");
+    HistoName << "HitsPositions3D";
+    hits_positions_.positions3D = ibooker.book3D(HistoName.str(), HistoName.str(),
+                                                 200,-280.,280.,
+                                                 200,-120.,120.,
+                                                 200,-120.,120.);
+    HistoName.str("");
+    HistoName << "HitsPositions2D";
+    hits_positions_.positions2D = ibooker.book2D(HistoName.str(), HistoName.str(),
+                                                 500,-280.,280.,
+                                                 500,-120.,120.);
+    HistoName.str("");
+    HistoName << "HitsPositions2DAbs";
+    hits_positions_.positions2DAbs = ibooker.book2D(HistoName.str(), HistoName.str(),
+                                                    1000,0.,280.,
+                                                    1000,0.,120.);
 
+    
+    /* 1D scans */
     for(std::vector<double>::iterator offset = offset_scan_.begin(); offset != offset_scan_.end(); ++offset) {
         HistModes hist_modes = Phase2TrackerBXHistogram::bookBXHistos(ibooker,*offset);
         offsetBX_.insert(std::make_pair(*offset,hist_modes));

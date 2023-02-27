@@ -5,13 +5,19 @@
 #include "FWCore/Framework/interface/one/EDAnalyzer.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/Framework/interface/Event.h"
+#include "FWCore/Framework/interface/ESHandle.h"
 
 #include "DataFormats/Common/interface/Handle.h"
-#include "FWCore/Framework/interface/ESHandle.h"
+#include "DataFormats/SiStripDetId/interface/SiStripDetId.h"
+#include "DataFormats/DetId/interface/DetId.h"
+
+#include "Geometry/Records/interface/TrackerTopologyRcd.h"
+#include "Geometry/Records/interface/TrackerDigiGeometryRecord.h"
+
 #include "SimDataFormats/CrossingFrame/interface/CrossingFrame.h"
 #include "SimDataFormats/TrackingAnalysis/interface/TrackingParticle.h"
+
 #include "DQMServices/Core/interface/DQMEDAnalyzer.h"
-#include "DataFormats/DetId/interface/DetId.h"
 
 #include "CLHEP/Units/GlobalPhysicalConstants.h"
 #include "CLHEP/Units/GlobalSystemOfUnits.h"
@@ -57,6 +63,26 @@ class Phase2TrackerBXHistogram : public DQMEDAnalyzer{
             MonitorElement* Latched;
         };
 
+        struct HitsPositions{
+            MonitorElement* positions3D;
+            MonitorElement* positions2D;
+            MonitorElement* positions2DAbs;
+        };
+
+        std::map<std::string,std::pair<std::pair<float,float>,std::pair<float,float>>> dims_per_subdet =
+        {   // name {r_min,r_max}, {z_min,z_max}
+            {"ALL", {{0.,120.} , {0.,280.}}},
+            {"BLL", {{20.,26.} , {0.,6.5}}},
+            {"BLH", {{22.,30.} , {116.,122.}}},
+            {"BHL", {{108.,114.} , {0.,20.}}},
+            {"BHH", {{108.,114.} , {80.,120.}}},
+            {"ELL", {{22.,28.} , {128.,131.}}},
+            {"ELH", {{32.,50.5} , {260.,270.}}},
+            {"EHL", {{93.,112.} , {128.,131.}}},
+            {"EHH", {{92.,112.} , {262.,268.}}},
+        };
+
+
     private:
 
         float getSimTrackPt(EncodedEventId event_id, unsigned int tk_id);
@@ -67,6 +93,10 @@ class Phase2TrackerBXHistogram : public DQMEDAnalyzer{
         HistModes offsetBXMap_;
         HistModes attBXMap_;
         HistModes hitsTrueMap_;
+    
+        HitsPositions hits_positions_;
+
+
         HistModes bookBXHistos(DQMStore::IBooker & ibooker,double offset);
 
         // Select Hit 
@@ -86,6 +116,7 @@ class Phase2TrackerBXHistogram : public DQMEDAnalyzer{
         static constexpr int interpolationStep{10};
 
         //
+        std::pair<std::pair<float,float>,std::pair<float,float>> dimensions_;
 
         std::string geomType_;
 
@@ -101,14 +132,18 @@ class Phase2TrackerBXHistogram : public DQMEDAnalyzer{
         std::vector< std::pair<edm::InputTag,edm::EDGetTokenT< edm::PSimHitContainer >> > simHitTokens_;
         std::vector< std::pair<edm::InputTag,edm::EDGetTokenT< CrossingFrame<PSimHit> >> > mixSimHitTokens_;
         const edm::EDGetTokenT<edm::SimTrackContainer> simTrackToken_;
+
         edm::Handle<edm::SimTrackContainer> simTrackHandle_;
 
-        edm::ESHandle<TrackerTopology> tTopoHandle_;
-        edm::ESHandle<TrackerGeometry> geomHandle_;
+        //edm::ESHandle<TrackerTopology> tTopoHandle_;
+        //edm::ESHandle<TrackerGeometry> geomHandle_;
+        const edm::ESGetToken<TrackerTopology, TrackerTopologyRcd> topoToken_;
+        const edm::ESGetToken<TrackerGeometry, TrackerDigiGeometryRecord> geomToken_;
 
         std::vector<double> pulseShapeParameters_;
         bool use_mixing_;
         std::string mode_;
+        std::string subdet_;
         bool fireRandom_;
         int bx_range_;
         float deadTime_;
