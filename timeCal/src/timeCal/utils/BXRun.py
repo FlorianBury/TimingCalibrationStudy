@@ -10,15 +10,16 @@ import argparse
 import subprocess
 import numpy as np
 import ROOT
-from pprint import pprint 
+from pprint import pprint
 
 from .environment import getEnv
 
 default_params = {'N'                  : 100,
-                  'threshold'          : 5800, 
-                  'thresholdsmearing'  : 0., 
-                  'tofsmearing'        : 0., 
+                  'threshold'          : 5800,
+                  'thresholdsmearing'  : 0.,
+                  'tofsmearing'        : 0.,
                   'mode'               : 'scan',
+                  'subdet'             : 'ALL',
                   'offset'             : -1.,
                }
 
@@ -34,6 +35,9 @@ SETUP_CMSSW = (
                )
 HARVESTER_SCRIPT = 'Harvester_cfg.py'
 SLURM_OUTPUT_DIR = getEnv()['paths']['production']
+VENV = getEnv()['paths']['venv']
+
+MAX_ARR = 3000
 
 class Scan:
     def setParameterDict(self,params):
@@ -73,7 +77,10 @@ class Scan:
                 continue
             if nextline == '' and process.poll() is not None:
                 break
-            print(nextline.strip())
+            nextline = nextline.strip()
+            if len(nextline) == 0:
+                continue
+            print (nextline)
             if return_output:
                 output.append(nextline)
         process.communicate()
@@ -89,27 +96,30 @@ class Scan:
         # Check if matches with sys.prefix #
         if hasattr(sys, "base_prefix"):
             return sys.base_prefix != sys.prefix
-        elif hasattr(sys, "real_prefix"): # old versions 
+        elif hasattr(sys, "real_prefix"): # old versions
             return sys.real_prefix != sys.prefix
         else:
             return False
 
     @classmethod
+    def get_env(cls):
+        env = os.environ.copy()
+        if cls.in_virtualenv():
+            # If in virtual environment, gotta forge a copy of the environment, where we:
+            # Delete the VIRTUAL_ENV variable.
+            del(env['VIRTUAL_ENV'])
+
+            # Delete the venv path from the front of my PATH variable.
+            orig_path = env['PATH']
+            virtual_env_prefix = sys.prefix + '/bin:'
+            env['PATH'] = orig_path.replace(virtual_env_prefix, '')
+
+        return env
+
+    @classmethod
     def format_command(cls,cmd):
-        full_cmd = ""
-        # Check if virtual env and disable it in case #
-        #if cls.in_virtualenv():
-        #    path_virtual_env = os.environ.get('VIRTUAL_ENV')
-        #    path_activate = os.path.join(path_virtual_env,'bin','activate')
-        #    if not os.path.exists(path_activate):
-        #        raise RuntimeError(f'Weird, could not find {path_activate}')
-        #    full_cmd += f"source {path_activate}; deactivate; export PYTHONPATH=''; "
-        #    # Need to first source the activation to be able to deactivate
-        #    # Also need to clear python path to remove the LCG 
-        #    # So far not working though ...
-        #    raise RuntimeError('Recommended for now to not start from virtual env ...')
         cwd = os.getcwd()
-        full_cmd += f"cd {CMSSW_DIR} ; {SETUP_CMSSW} ; cd {cwd}"
+        full_cmd = f"cd {CMSSW_DIR} ; {SETUP_CMSSW} ; cd {cwd}"
         if isinstance(cmd,str):
             full_cmd += f" && {cmd}"
         elif isinstance(cmd,list):
@@ -133,7 +143,7 @@ class Scan:
         print ('Arguments : '+' '.join(args))
         dqm_cmd = cls.format_command(['cmsRun',os.path.join(CMSSW_DIR,script)] + args)
 
-        rc,output = cls.run_command(dqm_cmd,return_output=True,shell=True)
+        rc,output = cls.run_command(dqm_cmd,return_output=True,shell=True,env=cls.get_env())
         dqm_file = None
         for line in output:
             print (line)
@@ -152,10 +162,10 @@ class Scan:
         print (f"DQM root file created as {dqm_file}")
         if not os.path.exists(dqm_file):
             raise RuntimeError("DQM root file not present")
-            
+
         print ('Starting harvesting')
         harvest_cmd = cls.format_command(['cmsRun',os.path.join(CMSSW_DIR,HARVESTER_SCRIPT),f'input={dqm_file}'])
-        rc = cls.run_command(harvest_cmd,shell=True)
+        rc = cls.run_command(harvest_cmd,shell=True,env=cls.get_env())
         print (f'... exit code : {rc}')
         if rc != 0:
             raise RuntimeError("Harvesting failed")
@@ -183,6 +193,17 @@ class Scan:
             p.Write()
         F.Close()
 
+    @staticmethod
+    def getFileParams(f):
+        F = ROOT.TFile(f,"READ")
+        params = {}
+        for key in F.GetListOfKeys():
+            if key.GetClassName() == "TNamed":
+                params[key.GetName()] = F.Get(key.GetName()).GetTitle()
+        F.Close()
+        return params
+
+
     def findMissingJobs(self,path):
         with open(os.path.join(path,'infiles.yml'),'rb') as handle:
             infiles = yaml.safe_load(handle,)
@@ -193,31 +214,48 @@ class Scan:
         rootfiles = list(glob.glob(os.path.join(path,'output','*.root')))
         pbar = enlighten.Counter(total=len(rootfiles), desc='Progress', unit='Files')
 
+        idx_missing = [True] * N
         for rootfile in rootfiles:
-            pbar.update()
-            F = ROOT.TFile(rootfile,"READ")
-            ROOT.SetOwnership(F,False)
-            params = {}
-            for key in F.GetListOfKeys():
-                if key.GetClassName() == "TNamed":
-                    params[key.GetName()] = F.Get(key.GetName()).GetTitle()
+            params = self.getFileParams(rootfile)
             if params not in infiles:
-                print ('Warning : parameters not in infiles',params)
-            else:
-                infiles.remove(params) 
-            F.Close()
+                raise RuntimeError(f'Cannot find {params} in infiles')
+            idx_missing[infiles.index(params)] = False
+            pbar.update()
 
+        idx_resubmit = np.array([i for i in range(N) if idx_missing[i]])
         print (f"All jobs     = {N}")
-        print (f"Missing jobs = {len(infiles)}")
-        if len(infiles) > 0:
-            print ("Do not forget to send the jobs with --submit")
-            for infile in infiles:
-                print (infile)
+        print (f"Missing jobs = {len(idx_resubmit)}")
 
-            self.inputParamsNames = list(infiles[0].keys())
-            self.inputParams = [[infile[name] for name in self.inputParamsNames] for infile in infiles]
-                    
-    def submit_on_slurm(self,name,debug=False):
+        if len(idx_resubmit) > 0:
+            slurm_scripts = glob.glob(os.path.join(path,'scripts','slurmSubmission*.sh'))
+
+            print ('Missing parameters :')
+            for i in idx_resubmit:
+                print (f'{i}/{len(idx_resubmit)}',infiles[i])
+
+            print ('Use following command(s) to resubmit missing jobs')
+
+            # Run over all script bash script #
+            for j in range(len(slurm_scripts)):
+                # make and check name #
+                script = os.path.join(path,'scripts',f'slurmSubmission_{j}.sh')
+                if not os.path.exists(script):
+                    raise RuntimeError(f'Cannot find {script}')
+
+                # get all indices #
+                idx_min = j*MAX_ARR
+                idx_max = (j+1)*MAX_ARR
+                idx = idx_resubmit[np.logical_and(idx_resubmit>=idx_min,idx_resubmit<idx_max)] - idx_min
+
+                # Command #
+                if len(idx) > 0:
+                    cmd = f"sbatch --array={','.join([str(i+1) for i in idx])} {script}"
+                    print (cmd)
+                    print ()
+        else:
+            print ('All jobs have succeeded')
+
+    def submit_on_slurm(self,name,debug=False,slurm_params={}):
         # Slurm configuration
         from CP3SlurmUtils.Configuration import Configuration
         from CP3SlurmUtils.SubmitWorker import SubmitWorker
@@ -226,23 +264,29 @@ class Scan:
         config = Configuration()
         config.sbatch_partition = 'cp3'
         config.sbatch_qos = 'cp3'
-        config.sbatch_time = '0-02:00:00'
+        config.sbatch_time = '0-04:00:00'
         config.sbatch_memPerCPU= '3000'
-        config.inputSandboxContent = ['*py']
-        config.sbatch_additionalOptions = ["--export=All"]
+        config.inputSandboxContent = []
+        config.sbatch_additionalOptions = ["--export=None"]
         config.useJobArray = True
         config.inputParamsNames = []
         config.inputParams = []
 
+        # override #
+        for key,val in slurm_params.items():
+            setattr(config,f'sbatch_{key}',str(val))
+
+        # base payload #
         base_payload = "BXRun --run " + " ".join([n+"={"+n+"}" for n in self.inputParamsNames])
-    
-        config.payload = "${taskcmd}"
-    
+        # TODO : figure out why when submitting on slurm, if the virtual env is passed through it then the subprocess with cmSRun fails
+
+        config.payload = "${BX_cmd}"
+
         timestamp = datetime.datetime.now().strftime(name+'_%Y-%m-%d_%H-%M-%S')
-    
+
         slurm_config = copy.deepcopy(config)
         slurm_working_dir = os.path.join(SLURM_OUTPUT_DIR,timestamp)
-    
+
         slurm_config.batchScriptsDir = os.path.join(slurm_working_dir, 'scripts')
         slurm_config.inputSandboxDir = slurm_config.batchScriptsDir
         slurm_config.stageoutDir = os.path.join(slurm_working_dir, 'output')
@@ -255,30 +299,54 @@ class Scan:
             paramSet.update({k:v for k,v in default_params.items() if k not in paramSet.keys()})
             all_params.append(paramSet)
 
-        slurm_config.inputParamsNames = ['taskcmd']
-        maxArr = 3000
-        Njobs = int(math.ceil(float(len(self.inputParams))/maxArr))
+        slurm_config.inputParamsNames = ['BX_cmd']
+        Njobs = int(math.ceil(float(len(self.inputParams))/MAX_ARR))
+        slurm_ids = []
         for job in range(Njobs):
             print ('Submitting batch of jobs %d/%d'%(job,Njobs))
+
+            # Make name of bash job #
+            slurm_config.batchScriptsFilename = f"slurmSubmission_{job}.sh"
+            slurm_script = os.path.join(slurm_config.batchScriptsDir,slurm_config.batchScriptsFilename)
+
+            # Change params #
             slurm_config.inputParams = []
-            for inputParam in self.inputParams[job*maxArr:(job+1)*maxArr]:
+            for inputParam in self.inputParams[job*MAX_ARR:(job+1)*MAX_ARR]:
                 dParam = {n:p for n,p in zip(self.inputParamsNames,inputParam)}
-                taskcmd = base_payload.format(**dParam)
-                slurm_config.inputParams.append([taskcmd])
+                slurm_config.inputParams.append([base_payload.format(**dParam)])
+
             # Submit job!
             print("Submitting job...")
             if not debug:
-                submitWorker = SubmitWorker(slurm_config, submit=True, yes=True, debug=False, quiet=False)
+                submitWorker = SubmitWorker(slurm_config, submit=False, yes=True, debug=False, quiet=True)
                 submitWorker()
-                print("Done")
+                if not os.path.exists(slurm_script):
+                    raise RuntimeError(f'File {slurm_script} should have been created')
+
+                content = []
+                with open(slurm_script,'r') as handle:
+                    for line in handle:
+                        content.append(line)
+                        if "Starting read of input parameters" in line:
+                            content.append(f"\tsource {VENV}\n")
+
+                with open(slurm_script,'w') as handle:
+                    for line in content:
+                        handle.write(line)
+                rc,log = self.run_command(["sbatch",slurm_script],return_output=True)
+                slurm_ids.append(log[-1].split(' ')[-1])
+                print (f'Job submission exit code : {rc}, slurm ID = {slurm_ids[-1]}')
             else:
                 print(f'Submitting {len(slurm_config.inputParams)} jobs')
                 print(f'Payload : {slurm_config.payload}')
-                print(f'Param names : {slurm_config.inputParamsNamea}')
+                print(f'Param names : {slurm_config.inputParamsNames}')
                 print ('Parameters :')
                 for inputParam in slurm_config.inputParams:
                     print ("\t",inputParam)
                 print('... don\'t worry, jobs not sent')
+
+        print ('All slurm IDs :')
+        print (' '.join(slurm_ids))
 
         # Save params #
         if not debug:
@@ -293,7 +361,7 @@ class Scan:
             with open(os.path.join(slurm_working_dir,'infiles.yml'),'w') as handle:
                 yaml.dump(all_params,handle)
 
-        
+
 
 def main():
     parser = argparse.ArgumentParser(description='Timing calibration setup job submission')
@@ -301,6 +369,8 @@ def main():
                         help='Config to run several modes')
     parser.add_argument('--submit',action='store',required=False,type=str,default=None,
                         help='Name for job submission')
+    parser.add_argument('--slurm',action='store',required=False,nargs='+',default=None,
+                        help='Slurm parameters, separated by spaces and specified with = signs (eg stime=04:00:00 mem=6000)')
     parser.add_argument('--resubmit',action='store',required=False,type=str,default=None,
                         help='Slurm output dir to check for previous results and only resubmit the missing ones')
     parser.add_argument('--run',nargs='*',required=False,type=str,default=None,
@@ -312,7 +382,7 @@ def main():
 
 
     instance = Scan()
-    
+
     # Config #
     if args.yaml is not None:
         with open(args.yaml,'r') as handle:
@@ -332,6 +402,16 @@ def main():
             Scan.run(param)
         sys.exit()
 
+    # Slurm parameters #
+    if args.slurm is not None:
+        slurmParams = {arg.split("=")[0]:arg.split("=")[1] for arg in args.slurm}
+        print ('Overwriting default slurm values below')
+        for slurmParam,slurmVal in slurmParams.items():
+            print (f'... {slurmParam:20s} = {slurmVal}')
+    else:
+        slurmParams = {}
+
+
     # Resubmit #
     if args.resubmit is not None:
         instance.findMissingJobs(args.resubmit)
@@ -340,7 +420,7 @@ def main():
         sys.exit()
     # Submit #
     if args.submit is not None:
-        instance.submit_on_slurm(args.submit,args.debug)
+        instance.submit_on_slurm(args.submit,args.debug,slurmParams)
         sys.exit()
 
 if __name__ == "__main__":
