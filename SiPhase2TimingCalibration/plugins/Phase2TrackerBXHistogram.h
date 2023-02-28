@@ -117,6 +117,7 @@ class Phase2TrackerBXHistogram : public DQMEDAnalyzer{
 
         //
         std::pair<std::pair<float,float>,std::pair<float,float>> dimensions_;
+        std::map<std::pair<EncodedEventId,unsigned int>,float> tracks_pt_;
 
         std::string geomType_;
 

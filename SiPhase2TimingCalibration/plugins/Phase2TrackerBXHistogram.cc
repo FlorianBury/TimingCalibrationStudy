@@ -231,7 +231,7 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
 
     if (tParticleHandle_.isValid()) {
         std::cout <<"TrackingParticle handle valid" <<std::endl;
-        if (verbosity_>0){
+        if (verbosity_>1){
             std::cout << "Loop over TrackingParticle particles"<<std::endl;
             unsigned int ival = 0;
             for (std::vector<TrackingParticle>::const_iterator  iterTPart = tParticleHandle_->begin(); iterTPart != tParticleHandle_->end(); ++iterTPart) {
@@ -246,7 +246,7 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
 
     if (simTrackHandle_.isValid()) { 
         std::cout <<"SimTrack handle valid" <<std::endl;
-        if (verbosity_>0){
+        if (verbosity_>1){
             std::cout << "Loop over SimTrack particles"<<std::endl;
             for (edm::SimTrackContainer::const_iterator simTrkItr = simTrackHandle_->begin(); simTrkItr != simTrackHandle_->end();    ++simTrkItr) {
                 unsigned int ival = 0;
@@ -261,8 +261,7 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
 
 
     for(std::vector<double>::iterator offset = offset_scan_.begin(); offset != offset_scan_.end(); ++offset) {
-        if (verbosity_>1){
-            std::cout<<"========================================================"<<std::endl;
+        if (verbosity_>0){
             std::cout<<"New offset value "<<*offset<<std::endl;
         }
         pulseShapeParameters_[0] = *offset;
@@ -374,6 +373,12 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
         std::cout<<"\tNot a tracker hit -> discarded"<<std::endl;
         return;
     }
+    if (tkpt < pTCut_){
+        if (verbosity_>1){
+            std::cout <<"PT "<<tkpt<<" below cut at "<<pTCut_<<" -> dismissed"<<std::endl; 
+        }
+        return;
+    }
 
     float dZ = (*isim).entryPoint().z() - (*isim).exitPoint().z();  
     if (fabs(dZ) <= 0.01){
@@ -381,6 +386,7 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
             std::cout<<"\t|dZ| = "<<dZ<<" -> discarded"<<std::endl;
         }
         // Avoid delta rays 
+        // We are using this dZ cutoff to try to reject SimHits coming from  delta rays which has a very short track length.
         return;
     }
 
@@ -426,12 +432,6 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
     }
 
 
-    if (tkpt <= pTCut_){
-        if (verbosity_>1){
-            std::cout <<"PT "<<tkpt<<" below cut at "<<pTCut_<<" -> dismissed"<<std::endl; 
-        }
-        return;
-    }
 
     if (std::hypot(pdPos.x(),pdPos.y()) < dimensions_.first.first || std::hypot(pdPos.x(),pdPos.y()) > dimensions_.first.second){
         if (verbosity_>1){
@@ -591,28 +591,49 @@ Phase2TrackerBXHistogram::HistModes Phase2TrackerBXHistogram::bookBXHistos(DQMSt
 
 
 float Phase2TrackerBXHistogram::getSimTrackPt(EncodedEventId event_id, unsigned int tk_id) {
-    if (tParticleHandle_.isValid()){
-        std::vector<TrackingParticle>::const_iterator iterTPart;
-        for (iterTPart = tParticleHandle_->begin(); iterTPart != tParticleHandle_->end(); ++iterTPart) {
-            /// Make the pointer to the TrackingParticle
-            if (iterTPart->eventId() != event_id) continue;
-
-            /// Loop over SimTracks inside TrackingParticle
-            std::vector<SimTrack>::const_iterator iterSimTrack;
-            for (iterSimTrack = iterTPart->g4Tracks().begin(); iterSimTrack != iterTPart->g4Tracks().end(); ++iterSimTrack) {
-                if (iterSimTrack->trackId() == tk_id) return iterSimTrack->momentum().Pt();
+    // Make map key
+    std::pair<EncodedEventId,unsigned int> key = std::make_pair(event_id,tk_id);
+    // If key not in map -> get the track pt 
+    if (tracks_pt_.find(key) == tracks_pt_.end()){
+        // Set default 
+        float pt = 0.;
+        // Look into sim track handle
+        if (simTrackHandle_.isValid() && pt == 0.){
+            for (edm::SimTrackContainer::const_iterator simTrkItr = simTrackHandle_->begin(); simTrkItr != simTrackHandle_->end();    ++simTrkItr) {
+                if (simTrkItr->eventId() != event_id)
+                    continue;
+                if (simTrkItr->trackId() == tk_id){
+                    pt = simTrkItr->momentum().Pt();
+                    break;
+                }
             }
         }
-    }
-    else if (simTrackHandle_.isValid()){
-        for (edm::SimTrackContainer::const_iterator simTrkItr = simTrackHandle_->begin(); simTrkItr != simTrackHandle_->end();    ++simTrkItr) {
-            if (simTrkItr->eventId() != event_id)
-                continue;
-            if (simTrkItr->trackId() == tk_id)
-                return simTrkItr->momentum().Pt();
+
+        // Look into particle handle
+        if (tParticleHandle_.isValid() && pt == 0.){
+            std::vector<TrackingParticle>::const_iterator iterTPart;
+            for (iterTPart = tParticleHandle_->begin(); iterTPart != tParticleHandle_->end(); ++iterTPart) {
+                /// Make the pointer to the TrackingParticle
+                if (iterTPart->eventId() != event_id) 
+                    continue;
+
+                /// Loop over SimTracks inside TrackingParticle
+                std::vector<SimTrack>::const_iterator iterSimTrack;
+                for (iterSimTrack = iterTPart->g4Tracks().begin(); iterSimTrack != iterTPart->g4Tracks().end(); ++iterSimTrack) {
+                    if (iterSimTrack->trackId() == tk_id){
+                        pt = iterSimTrack->momentum().Pt();
+                        break;
+                    }
+                }
+                if (pt > 0.)
+                    break;
+            }
         }
-    }
-    return -1;
+        // Record it 
+        tracks_pt_[key] = pt;
+    } 
+    // Return saved value
+    return tracks_pt_[key];
 }
 
 
