@@ -76,6 +76,12 @@ namespace scaling {
 // constructors 
 //
 Phase2TrackerBXHistogram::Phase2TrackerBXHistogram(const edm::ParameterSet& iConfig) :
+    /*
+        Constructor 
+            - Initialise all config parameters
+            - Printout of most important parameters
+            - Initialise dimensions
+    */
     config_(iConfig),
     geomType_(config_.getParameter<std::string>("GeometryType")),
     simTrackSrc_(config_.getParameter<edm::InputTag>("SimTrackSource")),
@@ -147,8 +153,11 @@ Phase2TrackerBXHistogram::Phase2TrackerBXHistogram(const edm::ParameterSet& iCon
 // destructor
 //
 Phase2TrackerBXHistogram::~Phase2TrackerBXHistogram() {
-    // do anything here that needs to be done at desctruction time
-    // (e.g. close files, deallocate resources etc.)
+    /*
+        Destructor 
+            - do anything here that needs to be done at desctruction time 
+              (e.g. close files, deallocate resources etc.)
+    */
     edm::LogInfo("Phase2TrackerBXHistogram")<< ">>> Destroy Phase2TrackerBXHistogram ";
     if (verbosity_ > 0)
         std::cout << ">>> Destroy Phase2TrackerBXHistogram " << std::endl;
@@ -157,6 +166,11 @@ Phase2TrackerBXHistogram::~Phase2TrackerBXHistogram() {
 // -- DQM Begin Run 
 //
 void Phase2TrackerBXHistogram::dqmBeginRun(const edm::Run& iRun, const edm::EventSetup& iSetup) {
+    /*
+        Start DQM run begin
+            - Clear vector of delays 
+            - Intialise array based on min, max and steps
+    */
     edm::LogInfo("Phase2TrackerBXHistogram")<< "Initialize Phase2TrackerBXHistogram ";
     if (verbosity_ > 0)
         std::cout << "Initialize Phase2TrackerBXHistogram " <<std::endl;
@@ -179,6 +193,13 @@ void Phase2TrackerBXHistogram::dqmBeginRun(const edm::Run& iRun, const edm::Even
 // -- Analyze
 //
 void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup) {
+    /*
+        Analyse
+            - Initialise smearing random variables
+            - Initialise edm handles
+            - Printout of all track informations
+            - Loop over delays -> for each delay run the scan of hits 
+    */
     using namespace edm;
 
     // random generator for smearing 
@@ -211,9 +232,6 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
     // Tracker Topology 
     const TrackerTopology* tTopo = &iSetup.getData(topoToken_); 
     const TrackerGeometry* tGeom;
-    //iSetup.get<TrackerTopologyRcd>().get(tTopoHandle_);
-    //const TrackerTopology* tTopo = tTopoHandle_.product();
-    //const TrackerGeometry* tGeom = geomHandle_.product();  
 
     edm::ESWatcher<TrackerDigiGeometryRecord> theTkDigiGeomWatcher;
 
@@ -224,8 +242,6 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
         return;
 
     // Particle containers 
-    //edm::ESHandle<GeometricDet> rDD;
-    //iSetup.get<IdealGeometryRecord>().get(geomType_,rDD);
     iEvent.getByToken(tParticleToken_, tParticleHandle_);
     iEvent.getByToken(simTrackToken_, simTrackHandle_);
 
@@ -260,6 +276,7 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
     }
 
 
+    // Delay scan //
     for(std::vector<double>::iterator offset = offset_scan_.begin(); offset != offset_scan_.end(); ++offset) {
         if (verbosity_>0){
             std::cout<<"New offset value "<<*offset<<std::endl;
@@ -348,20 +365,26 @@ void Phase2TrackerBXHistogram::analyze(const edm::Event& iEvent, const edm::Even
 //
 template <typename T>
 void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopology* tTopo,const TrackerGeometry* tGeom){
+    /*
+        Run on all hits 
+            - Check if hit is to be considered
+            - Check for each BX whether mode if fired
+            - Fill histograms 
+    */
+    // Check BX //
     const PSimHit& simHit = (*isim);
     int bx_true  = simHit.eventId().bunchCrossing();
-
     if (bx_true != 0){
         if (verbosity_ > 1)
             std::cout << "Not from the main BX : BX = "<<bx_true<<"-> discarded"<<std::endl;
         return;
     }
 
+    // Check track //
     int tkid = (*isim).trackId();
     if (verbosity_ > 1)
         std::cout << "Track id "<<tkid<<std::endl;
     if (tkid <= 0) return;
-
 
     unsigned int rawid = simHit.detUnitId();
     const DetId detId(rawid);
@@ -380,6 +403,7 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
         return;
     }
 
+    // Check dZ //
     float dZ = (*isim).entryPoint().z() - (*isim).exitPoint().z();  
     if (fabs(dZ) <= 0.01){
         if (verbosity_ > 1){
@@ -390,7 +414,7 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
         return;
     }
 
-    /* check if strip */
+    // check if strip //
     if (!isStrip(detId)){
         if (verbosity_ > 1){
             std::cout<<"\tNot a strip hit ("<< rawid <<") -> discarded"<<std::endl;
@@ -398,7 +422,7 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
         return;
     }
 
-    /* Layer and geometry */
+    // Layer and geometry //
     int layer = tTopo->getOTLayerNumber(rawid);
     if (verbosity_ > 1){
         std::cout << " rawid " << rawid << " layer " << layer ; // << std::endl;
@@ -419,6 +443,8 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
         }
         return;
     }
+
+    // Get hit information //
     Global3DPoint pdPos = geomDet->surface().toGlobal(isim->localPosition());
 
     int event = simHit.eventId().event();
@@ -432,7 +458,7 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
     }
 
 
-
+    // Check if dimensions are fulfilled //
     if (std::hypot(pdPos.x(),pdPos.y()) < dimensions_.first.first || std::hypot(pdPos.x(),pdPos.y()) > dimensions_.first.second){
         if (verbosity_>1){
             std::cout <<"R pos outside ["<<dimensions_.first.first<<","<<dimensions_.first.second<<"]"<<std::endl;
@@ -447,10 +473,12 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
         return;
     }
 
+    // Fill position histograms //
     hits_positions_.positions3D->Fill(pdPos.z(),pdPos.x(),pdPos.y());
     hits_positions_.positions2D->Fill(pdPos.z(),std::hypot(pdPos.x(),pdPos.y())*((pdPos.y()>=0)-(pdPos.y()<0)));
     hits_positions_.positions2DAbs->Fill(fabs(pdPos.z()),std::hypot(pdPos.x(),pdPos.y()));
 
+    // Loop over relative BX //
     int attSampled = 0;
     int attLatched = 0;
     for (int bx = bx_true-bx_range_; bx <= bx_true+bx_range_; bx ++){
@@ -484,6 +512,11 @@ void Phase2TrackerBXHistogram::runSimHit(T isim,double offset, const TrackerTopo
 // -- Book Histograms
 //
 void Phase2TrackerBXHistogram::bookHistograms(DQMStore::IBooker & ibooker,edm::Run const &  iRun ,edm::EventSetup const &  iSetup ) {
+    /*
+        Book DQM histogram logics 
+            - Initialise 2D histograms 
+            - Run 1D scan bookings
+    */
 
     ibooker.cd();
 
@@ -559,6 +592,10 @@ void Phase2TrackerBXHistogram::bookHistograms(DQMStore::IBooker & ibooker,edm::R
 }
 
 Phase2TrackerBXHistogram::HistModes Phase2TrackerBXHistogram::bookBXHistos(DQMStore::IBooker & ibooker,double offset){
+    /*
+        Book BX histograms 
+            - Loop to save BX histogram for specific offset/delay
+    */
     std::string top_folder = config_.getParameter<std::string>("TopFolderName");
     std::stringstream folder_name;
 
@@ -591,6 +628,9 @@ Phase2TrackerBXHistogram::HistModes Phase2TrackerBXHistogram::bookBXHistos(DQMSt
 
 
 float Phase2TrackerBXHistogram::getSimTrackPt(EncodedEventId event_id, unsigned int tk_id) {
+    /*
+        From event and track id, find the pT
+    */
     // Make map key
     std::pair<EncodedEventId,unsigned int> key = std::make_pair(event_id,tk_id);
     // If key not in map -> get the track pt 
@@ -639,15 +679,26 @@ float Phase2TrackerBXHistogram::getSimTrackPt(EncodedEventId event_id, unsigned 
 
 // isPixel 
 bool Phase2TrackerBXHistogram::isPixel(const DetId& detId) {
+    /*
+        Check if hit on detid is pixel
+    */
     return (detId.subdetId() == PixelSubdetector::PixelBarrel ||  detId.subdetId() == PixelSubdetector::PixelEndcap);
 }
 
 bool Phase2TrackerBXHistogram::isStrip(const DetId& detId) {
+    /*
+        Check if hit on detid is strip
+    */
     return (detId.subdetId() == SiStripDetId::SubDetector::TIB || detId.subdetId() == SiStripDetId::SubDetector::TID || detId.subdetId() == SiStripDetId::SubDetector::TOB || detId.subdetId() == SiStripDetId::SubDetector::TEC);
 }
 
 
 bool Phase2TrackerBXHistogram::select_hit(float charge, int bx, float toa, DetId det_id, int hitDetectionMode){
+    /*
+        Main select hit logic 
+            - Depending on barrel or endcap, use the correct smearing
+            - Call correct model
+    */
     if (verbosity_>3)
         std::cout<<"Requesting mode "<<hitDetectionMode<<std::endl;
     bool result = false;
@@ -692,6 +743,9 @@ bool Phase2TrackerBXHistogram::select_hit(float charge, int bx, float toa, DetId
 // -- Select Hits in Sampled Mode
 //
 bool Phase2TrackerBXHistogram::select_hit_sampledMode(float charge, int bx, float toa, DetId det_id, float threshold) const {
+    /*
+        Hit detect logic : sampled mode
+    */
     toa -= bx*bx_time;
     double sampling_time = bx_time;
     double sigScale = getSignalScale(sampling_time - toa);
@@ -708,6 +762,9 @@ bool Phase2TrackerBXHistogram::select_hit_sampledMode(float charge, int bx, floa
 // -- Select Hits in Hit Detection Mode
 //
 bool Phase2TrackerBXHistogram::select_hit_latchedMode(float charge, int bx, float toa, DetId det_id, float threshold) const {
+    /*
+        Hit detect logic : latched mode
+    */
     toa -= bx * bx_time;
 
     float sampling_time = 0;
@@ -729,6 +786,12 @@ bool Phase2TrackerBXHistogram::select_hit_latchedMode(float charge, int bx, floa
     return false;
 }
 double Phase2TrackerBXHistogram::cbc3PulsePolarExpansion(double x) const {
+    /*
+        Get polar expansion of shape pulse form
+        https://indico.cern.ch/event/809430/contributions/3394346/attachments/1829394/2995389/SignalShapeStudy_12042019.pdf
+        https://indico.cern.ch/event/777362/contributions/3282560/attachments/1781508/2898378/DigiStudy_Jan18_2019.pdf
+        https://indico.cern.ch/event/809436/contributions/3492065/attachments/1875715/3088439/SignalShapeStudy_05072019.pdf
+    */
     constexpr size_t max_par = 6;
     if (pulseShapeParameters_.size() < max_par)
         return -1;
@@ -758,6 +821,9 @@ double Phase2TrackerBXHistogram::cbc3PulsePolarExpansion(double x) const {
     return fN;
 }
 double Phase2TrackerBXHistogram::signalShape(double x) const {
+    /*
+        For specific value of time (x) and the shape parameters, get the value of the signal response
+    */
     double xOffset = pulseShapeParameters_[0];
     double tau = pulseShapeParameters_[1];
     double maxCharge = pulseShapeParameters_[5];
@@ -766,6 +832,10 @@ double Phase2TrackerBXHistogram::signalShape(double x) const {
     return maxCharge * (std::exp(-xx / tau) * std::pow(xx / tau, 2.) * cbc3PulsePolarExpansion(x));
 }
 void Phase2TrackerBXHistogram::storeSignalShape() {
+    /*
+        Store in vector the shape response 
+        -> faster than recalculating at each hit
+    */
     pulseShapeVec_.clear();
     for (size_t i = 0; i < interpolationPoints; i++) {
         float val = i / interpolationStep;
@@ -774,6 +844,11 @@ void Phase2TrackerBXHistogram::storeSignalShape() {
     }
 }
 double Phase2TrackerBXHistogram::getSignalScale(double xval) const {
+    /*
+        Get value of response at specific time
+            -> scan the vector to find the value 
+    */
+
     double res = 0.0;
     int len = pulseShapeVec_.size();
 
@@ -793,6 +868,10 @@ double Phase2TrackerBXHistogram::getSignalScale(double xval) const {
 }
 
 float Phase2TrackerBXHistogram::smearEndcapThresholdDetId(DetId det_id){
+    /*
+        Threshold smearing in endcaps
+        -> Emulate baseline fluctuations
+    */
     std::map<DetId,float>::iterator smear = smearedThresholdFactors_Endcap_.find(det_id);
     if (smear == smearedThresholdFactors_Endcap_.end()){
         float new_smear = smearedThreshold_Endcap_->fire(); 
@@ -809,6 +888,10 @@ float Phase2TrackerBXHistogram::smearEndcapThresholdDetId(DetId det_id){
     } 
 }
 float Phase2TrackerBXHistogram::smearBarrelThresholdDetId(DetId det_id){
+    /*
+        Threshold smearing in barrel
+        -> Emulate baseline fluctuations
+    */
     std::map<DetId,float>::iterator smear = smearedThresholdFactors_Barrel_.find(det_id);
     if (smear == smearedThresholdFactors_Barrel_.end()){
         float new_smear = smearedThreshold_Barrel_->fire(); 
@@ -826,6 +909,10 @@ float Phase2TrackerBXHistogram::smearBarrelThresholdDetId(DetId det_id){
 }
 
 float Phase2TrackerBXHistogram::smearToFDetId(DetId det_id){
+    /*
+        ToF smearing in barrel
+        -> Emulate timing uncertainties
+    */
     std::map<DetId,float>::iterator smear = smearedTofFactors_.find(det_id);
     if (smear == smearedTofFactors_.end()){
         float new_smear = smearedTOF_->fire(); 

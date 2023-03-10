@@ -46,29 +46,41 @@ class Phase2TrackerBXHistogram : public DQMEDAnalyzer{
 
     public:
 
+        // Constructor //
         explicit Phase2TrackerBXHistogram(const edm::ParameterSet&);
+        // Destructor //
         ~Phase2TrackerBXHistogram() override;
-        void bookHistograms(DQMStore::IBooker & ibooker, edm::Run const &  iRun ,
-                edm::EventSetup const &  iSetup ) override;
+        // Initialize run parameters //
         void dqmBeginRun(const edm::Run& iRun, const edm::EventSetup& iSetup) override;
+        // Analyse : loop over delays and use runSimHit for each //
         void analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup) override;
+        // Logic to run over hits and check triggering //
         template <typename T>
         void runSimHit(T isim,double offset, const TrackerTopology* tTopo,const TrackerGeometry* tGeom);
 
+        // Logics to check whether pixel or strip hit and get track pT //
         bool isPixel(const DetId& detId);
         bool isStrip(const DetId& detId);
+        float getSimTrackPt(EncodedEventId event_id, unsigned int tk_id);
 
-        struct HistModes{
+        // Structures //
+        struct HistModes{ // Base histogram containers
             MonitorElement* Sampled;
             MonitorElement* Latched;
         };
 
-        struct HitsPositions{
+        struct HitsPositions{  // Save hit positions
             MonitorElement* positions3D;
             MonitorElement* positions2D;
             MonitorElement* positions2DAbs;
         };
+        // Histogram booking //
+        void bookHistograms(DQMStore::IBooker & ibooker, edm::Run const &  iRun ,
+                edm::EventSetup const &  iSetup ) override;
+        HistModes bookBXHistos(DQMStore::IBooker & ibooker,double offset); // Book BX for each delay in loop
 
+
+        // Separators for each set of modules //
         std::map<std::string,std::pair<std::pair<float,float>,std::pair<float,float>>> dims_per_subdet =
         {   // name {r_min,r_max}, {z_min,z_max}
             {"ALL", {{0.,120.} , {0.,280.}}},
@@ -85,48 +97,18 @@ class Phase2TrackerBXHistogram : public DQMEDAnalyzer{
 
     private:
 
-        float getSimTrackPt(EncodedEventId event_id, unsigned int tk_id);
 
+        // EDM variables //
         edm::ParameterSet config_;
 
-        std::map<double, HistModes> offsetBX_;
-        HistModes offsetBXMap_;
-        HistModes attBXMap_;
-        HistModes hitsTrueMap_;
-    
-        HitsPositions hits_positions_;
-
-
-        HistModes bookBXHistos(DQMStore::IBooker & ibooker,double offset);
-
-        // Select Hit 
-
-        enum { SquareWindow, SampledMode, LatchedMode, SampledOrLatchedMode, HIPFindingMode };
-        double cbc3PulsePolarExpansion(double x) const;
-        double signalShape(double x) const;
-        double getSignalScale(double xval) const;
-        void storeSignalShape();
-        bool select_hit(float charge, int bx, float toa, DetId det_id, int hitDetectionMode);
-        bool select_hit_sampledMode(float charge, int bx, float toa, DetId det_id, float threshold) const;
-        bool select_hit_latchedMode(float charge, int bx, float toa, DetId det_id, float threshold) const;
-
-        std::vector<double> pulseShapeVec_;
-        static constexpr float bx_time{25};
-        static constexpr size_t interpolationPoints{1000};
-        static constexpr int interpolationStep{10};
-
-        //
-        std::pair<std::pair<float,float>,std::pair<float,float>> dimensions_;
-        std::map<std::pair<EncodedEventId,unsigned int>,float> tracks_pt_;
-
         std::string geomType_;
-
         edm::InputTag simTrackSrc_;
         edm::InputTag simVertexSrc_;
         std::vector<edm::InputTag> pSimHitSrc_;
         std::vector<edm::InputTag> pMixSimHitSrc_;
         const edm::InputTag puSummarySrc_;
         edm::InputTag tParticleSrc_;
+
 
         const edm::EDGetTokenT<std::vector<TrackingParticle> > tParticleToken_;
         edm::Handle<std::vector<TrackingParticle> > tParticleHandle_;
@@ -136,11 +118,37 @@ class Phase2TrackerBXHistogram : public DQMEDAnalyzer{
 
         edm::Handle<edm::SimTrackContainer> simTrackHandle_;
 
-        //edm::ESHandle<TrackerTopology> tTopoHandle_;
-        //edm::ESHandle<TrackerGeometry> geomHandle_;
         const edm::ESGetToken<TrackerTopology, TrackerTopologyRcd> topoToken_;
         const edm::ESGetToken<TrackerGeometry, TrackerDigiGeometryRecord> geomToken_;
 
+
+        // Histograms related variables //
+        std::map<double, HistModes> offsetBX_;
+        HistModes offsetBXMap_;
+        HistModes attBXMap_;
+        HistModes hitsTrueMap_;
+    
+        HitsPositions hits_positions_;
+
+        // Signal shape //
+        std::vector<double> pulseShapeVec_;
+        double cbc3PulsePolarExpansion(double x) const;
+        double signalShape(double x) const;
+        double getSignalScale(double xval) const;
+        void storeSignalShape();
+
+        // Select hit variables //
+        static constexpr float bx_time{25};
+        static constexpr size_t interpolationPoints{1000};
+        static constexpr int interpolationStep{10};
+
+        // Select Hit logics //
+        enum { SquareWindow, SampledMode, LatchedMode, SampledOrLatchedMode, HIPFindingMode };
+        bool select_hit(float charge, int bx, float toa, DetId det_id, int hitDetectionMode);
+        bool select_hit_sampledMode(float charge, int bx, float toa, DetId det_id, float threshold) const;
+        bool select_hit_latchedMode(float charge, int bx, float toa, DetId det_id, float threshold) const;
+
+        // Config parameters //
         std::vector<double> pulseShapeParameters_;
         bool use_mixing_;
         std::string mode_;
@@ -162,11 +170,20 @@ class Phase2TrackerBXHistogram : public DQMEDAnalyzer{
         double theThresholdSmearing_Barrel_;
         double tof_smearing_;
 
+        const float GeVperElectron; // 3.7E-09 
+        int verbosity_;
+
+
+        // Containers // 
+        std::pair<std::pair<float,float>,std::pair<float,float>> dimensions_; // Dimensions to select modules 
+        std::map<std::pair<EncodedEventId,unsigned int>,float> tracks_pt_;    // cache for tracke pTs
+        
+        // Threshold gaussian smearing:
+    //
         float smearEndcapThresholdDetId(DetId);
         float smearBarrelThresholdDetId(DetId);
         float smearToFDetId(DetId);
-        
-        // Threshold gaussian smearing:
+
         std::unique_ptr<CLHEP::RandFlat> smearedThreshold_Endcap_;                          
         std::unique_ptr<CLHEP::RandFlat> smearedThreshold_Barrel_;
         std::unique_ptr<CLHEP::RandFlat> smearedTOF_;
@@ -176,8 +193,5 @@ class Phase2TrackerBXHistogram : public DQMEDAnalyzer{
         std::map<DetId,float> smearedThresholdFactors_Barrel_;
         std::map<DetId,float> smearedTofFactors_;
 
-        const float GeVperElectron; // 3.7E-09 
-        int nEvent;
-        int verbosity_;
 };
 #endif
