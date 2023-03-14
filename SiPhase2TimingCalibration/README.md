@@ -61,6 +61,18 @@ All these python configs can be run as (for options, see below)
     cmsRun <script>.py (options)
 ```
 
+NB : for `PUCalibration_cfg.py` one needs to use root files for the hard scattering and the PU. One could use xrootd, but can be slow, best option is to use local copies of files. To avoid constant overwriting when collaborating, the absolute paths must be put in two txt files that are read by the config (and kept out of git synchronisation using gitignore) :
+- `hard_scattering.txt` 
+- `PU.txt`
+
+Format within the file should be 
+```
+    file:<absolute_path_to_file>
+    file:<absolute_path_to_file>
+    [...]
+```
+No checks are done so make sure there are no spaces or empty lines
+
 ### Command and parameters
 
 #### Running production 

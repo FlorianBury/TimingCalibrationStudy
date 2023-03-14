@@ -1,10 +1,10 @@
 # Auto generated configuration file
-# using: 
-# Revision: 1.19 
-# Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
+# using:
+# Revision: 1.19
+# Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v
 # with command line options: FourMuExtendedPt_1_200_pythia8_cfi --conditions auto:phase2_realistic_T14 -n 10 --era Phase2C8 --eventcontent FEVTDEBUG --relval 10000,100 -s GEN,SIM --datatier GEN-SIM --beamspot HLLHC --geometry Extended2026D41 --python step1_GEN_SIM_CMSSW111_D41_cfg.py --no_exec
 import os
-import sys 
+import sys
 
 from FWCore.ParameterSet.VarParsing import VarParsing
 
@@ -15,6 +15,11 @@ options.register('N',
                  VarParsing.multiplicity.singleton,
                  VarParsing.varType.int,
                  "Number of events to be processed")
+options.register('pt',
+                 2.,
+                 VarParsing.multiplicity.singleton,
+                 VarParsing.varType.float,
+                 "Value of the pt cut")
 options.register('threshold',
                  5800,
                  VarParsing.multiplicity.singleton,
@@ -34,7 +39,12 @@ options.register('mode',
                  'scan',
                  VarParsing.multiplicity.singleton,
                  VarParsing.varType.string,
-                 "Mode : scan (scan delay values) or emulate (use a random value of delay)") 
+                 "Mode : scan (scan delay values) or emulate (use a random value of delay)")
+options.register('subdet',
+                 'ALL',
+                 VarParsing.multiplicity.singleton,
+                 VarParsing.varType.string,
+                 "Part of the OT to use for the hits : ALL | BLL | BHL | BLH | BHH | ELL | EHL | ELH | EHH")
 options.register('offset',
                  -1.,
                  VarParsing.multiplicity.singleton,
@@ -46,14 +56,13 @@ options.register('verbose',
                  VarParsing.varType.int,
                  "Verbose level : 0 (nothing) | 1 (track info) | 2 (BX scan info) | 3 (Firing of the hit detect) | 4 (full detail on algo)")
 
-
-
 options.parseArguments()
 
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
-process = cms.Process('MIXTEST',eras.Phase2)
+#process = cms.Process('MIXTEST',eras.Phase2)
+process = cms.Process('MIX',eras.Phase2C17I13M9)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -63,7 +72,7 @@ process.load('Configuration.EventContent.EventContent_cff')
 process.load('SimGeneral.MixingModule.mixNoPU_cfi')
 process.load('SimGeneral.MixingModule.cfwriter_cfi')
 process.load("SimGeneral.MixingModule.trackingTruthProducerSelection_cfi")
-process.load('Configuration.Geometry.GeometryExtended2023D21Reco_cff')
+process.load('Configuration.Geometry.GeometryExtended2026D88Reco_cff')
 process.load('Configuration.StandardSequences.MagneticField_cff')
 process.load('Configuration.StandardSequences.Generator_cff')
 process.load('Configuration.StandardSequences.VtxSmearedNoSmear_cff')
@@ -78,7 +87,8 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 # Other statements
 process.genstepfilter.triggerConditions=cms.vstring("generation_step")
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase2_realistic', '')
+#process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase2_realistic', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase2_realistic_T21','')
 
 
 process.maxEvents = cms.untracked.PSet(
@@ -89,7 +99,7 @@ process.maxEvents = cms.untracked.PSet(
 
 process.source = cms.Source("EmptySource",
    firstEvent = cms.untracked.uint32(1)
-)   
+)
 
 process.options = cms.untracked.PSet(
     FailPath = cms.untracked.vstring(),
@@ -120,7 +130,7 @@ process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.19 $')
 )
 
-# Pythia gun 
+# Pythia gun
 process.generator = cms.EDFilter("Pythia8PtGun",
     PGunParameters = cms.PSet(
         AddAntiParticle = cms.bool(True),
@@ -145,8 +155,10 @@ process.generator = cms.EDFilter("Pythia8PtGun",
 # Output definition
 import random
 if options.mode == 'scan':
-    filename = 'BXHistScan_N_{:d}_threshold_{:d}_thresholdsmearing_{:0.1f}_tofsmearing_{:0.1f}_raw'.format(
+    filename = 'BXHistScan_subdet_{:s}_N_{:d}_pt_{:.01f}_threshold_{:d}_thresholdsmearing_{:0.1f}_tofsmearing_{:0.1f}_raw'.format(
+                    options.subdet,
                     options.N,
+                    options.pt,
                     int(options.threshold),
                     options.thresholdsmearing,
                     options.tofsmearing)
@@ -155,10 +167,11 @@ elif options.mode == 'emulate':
         offset_emulate = round(random.random()*50,2)
     else:
         offset_emulate = round(options.offset,2)
-        
-    filename = 'BXHistEmulateDelay_{:0.2f}_N_{:d}_threshold_{:d}_thresholdsmearing_{:0.1f}_tofsmearing_{:0.1f}_raw'.format(
+    filename = 'BXHistEmulateDelay_{:0.2f}_subdet_{:s}_N_{:d}_pt_{:.01f}_threshold{:d}_thresholdsmearing_{:0.1f}_tofsmearing_{:0.1f}_raw'.format(
                     offset_emulate,
+                    options.subdet,
                     options.N,
+                    options.pt,
                     int(options.threshold),
                     options.thresholdsmearing,
                     options.tofsmearing)
@@ -185,7 +198,7 @@ process.FEVTDEBUGoutput = cms.OutputModule("PoolOutputModule",
 process.load('SimTracker.SiPhase2TimingCalibration.Phase2TrackerBXHistogram_cfi')
 process.digiana_seq = cms.Sequence(process.timeCalib)
 
-### Modify Hit parameters 
+### Modify Hit parameters
 process.timeCalib.ThresholdInElectrons_Barrel = cms.double(options.threshold)
 process.timeCalib.ThresholdInElectrons_Endcap = cms.double(options.threshold)
 process.timeCalib.ThresholdSmearing_Barrel = cms.double(options.thresholdsmearing)
@@ -203,7 +216,7 @@ process.RandomNumberGeneratorService.VtxSmeared.initialSeed = random.randrange(1
 process.RandomNumberGeneratorService.g4SimHits.initialSeed  = random.randrange(1,10e07)
 setattr(process.RandomNumberGeneratorService,'timeCalib',cms.PSet(
                     initialSeed = cms.untracked.uint32(random.randrange(1,10e07)),
-                    engineName  = cms.untracked.string('TRandom3'))  
+                    engineName  = cms.untracked.string('TRandom3'))
 )
 
 
