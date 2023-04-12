@@ -22,7 +22,7 @@ class Observable:
         """
             Initialize
             Input  :
-                - array [np.ndarray] : array of values 
+                - array [np.ndarray] : array of values
                 - labels [dict(str:np.ndarray)] : dict of labels of the values array with names and axes values
                 - name [str] (default = '') : name of the observable
         """
@@ -43,8 +43,8 @@ class Observable:
 
     def GetSlice(self,**kwargs):
         """
-            Selects a subset of parameters 
-            Input  : 
+            Selects a subset of parameters
+            Input  :
                 - **kwargs : either parameter values by name or dictionnary
             Return : Observable instance with reduced array
         """
@@ -59,7 +59,7 @@ class Observable:
                     element = np.where(self.labels[key]==kwargs[key])[0][0]
                 except IndexError:
                     raise IndexError('Cannot find element with value {} of label "{}"'.format(kwargs[key],key))
-                arr_select = arr_select.take(element,idx)            
+                arr_select = arr_select.take(element,idx)
             else:
                 labels_select[key] = self.labels[key]
         labels_select = {key:labels_select[key] for key in reversed(list(labels_select.keys()))}
@@ -83,13 +83,17 @@ class Observable:
 
     @staticmethod
     def _getEdgesFromCenters(x):
-        """ 
+        """
             Helper method to get the centers from the bin edges
-            Input  : 
+            Note : Assumes bin edge is the mediam between two centers
+                -> In case of different bin widths, the center will not be in the "bin center"
+            Input  :
                 - x [np.ndarray] : bin edges
             Return : centers of the bins [np.ndarray]
         """
-        return np.concatenate(((x[:-1] - np.diff(x)/2)[:2],x[1:] + np.diff(x)/2))
+        d = np.diff(x)/2
+        return np.r_[x[0]-d[0],x[0]+d[0],x[1:-1]+d[1:],x[-1]+d[-1]]
+        #return np.concatenate(((x[:-1] - np.diff(x)/2)[:2],x[1:] + np.diff(x)/2))
 
 
     #######################################
@@ -109,8 +113,8 @@ class Observable:
 
     def GetRootTH1(self,name=''):
         """
-            Return TH1 scan of single parameter observable 
-            Input  : 
+            Return TH1 scan of single parameter observable
+            Input  :
                 - name [str] (default = '') : name to give the TH1
             Return : ROOT.TH1 of the scan
         """
@@ -121,12 +125,14 @@ class Observable:
                       xedges.shape[0]-1, array('d',xedges))
         for ix in range(xedges.shape[0]-1):
             h.SetBinContent(ix+1,yval[ix])
+        h.GetXaxis().SetTitle(xlabel)
+        h.GetYaxis().SetTitle(self.name)
         return h
 
     def GetRootTGraph(self,name=''):
         """
-            Return TGraph scan of single parameter observable 
-            Input  : 
+            Return TGraph scan of single parameter observable
+            Input  :
                 - name [str] (default = '') : name to give the TH1
             Return : ROOT.TGraph of the scan
         """
@@ -135,13 +141,13 @@ class Observable:
         xlabel = list(self.labels.keys())[0]
         g.GetXaxis().SetTitle(xlabel)
         g.GetYaxis().SetTitle(self.name)
-        g.SetName('')
+        g.SetName(name)
         return g
 
     def Pyplot1D(self,ax,**kwargs):
         """
-            Adds the 1D plot to a matplotlib.pyplot subplot 
-            Input  : 
+            Adds the 1D plot to a matplotlib.pyplot subplot
+            Input  :
                 - ax [subplot instance] : the subplot on which to add the curve
                 - kwargs : all the options one cas use in pyplot.plot()
             Return : None
@@ -155,7 +161,7 @@ class Observable:
     def _get2DScan(self,x,y):
         """
             Get 2D scan values
-            Input  : 
+            Input  :
                 - x [str] : label in the x axis
                 - y [str] : label in the y axis
             Return : (xvalues[np.ndarray],yvalues[np.ndarray],values[np.ndarray])
@@ -175,11 +181,11 @@ class Observable:
 
         return xvalues,yvalues,values
 
-        
+
     def GetRootTH2(self,x,y,name=''):
         """
-            Return TH2 scan of two parameters observable 
-            Input  : 
+            Return TH2 scan of two parameters observable
+            Input  :
                 - x [str] : label in the x axis
                 - y [str] : label in the y axis
                 - name [str] (default = '') : name to give the TH2
@@ -192,7 +198,6 @@ class Observable:
                       xedges.shape[0]-1, array('d',xedges),
                       yedges.shape[0]-1, array('d',yedges))
 
-                
         for ix in range(xedges.shape[0]-1):
             for iy in range(yedges.shape[0]-1):
                 h.SetBinContent(ix+1,iy+1,values[ix,iy])
@@ -204,8 +209,8 @@ class Observable:
 
     def GetRootTGraph2D(self,x,y,name=''):
         """
-            Return TGraph2D scan of two parameters observable 
-            Input  : 
+            Return TGraph2D scan of two parameters observable
+            Input  :
                 - x [str] : label in the x axis
                 - y [str] : label in the y axis
                 - name [str] (default = '') : name to give the TGraph2D
@@ -217,13 +222,15 @@ class Observable:
         Y = Y.ravel()
         Z = values.ravel()
         g = ROOT.TGraph2D(Z.shape[0],X,Y,Z)
+        g.GetXaxis().SetTitle(x)
+        g.GetYaxis().SetTitle(y)
         g.SetName(name)
-        return ROOT.TGraph2D(self.GetRootTH2(x,y))
+        return ROOT.TGraph2D(self.GetRootTH2(x,y,name))
 
     def Pyplot2D(self,x,y,ax,**kwargs):
         """
-            Adds the 2D plot to a matplotlib.pyplot subplot 
-            Input  : 
+            Adds the 2D plot to a matplotlib.pyplot subplot
+            Input  :
                 - x [str] : label in the x axis
                 - y [str] : label in the y axis
                 - ax [subplot instance] : the subplot on which to add the curve
@@ -240,7 +247,7 @@ class Observable:
     def _get3DScan(self,x,y,z):
         """
             Get 2D scan values
-            Input  : 
+            Input  :
                 - x [str] : label in the x axis
                 - y [str] : label in the y axis
                 - z [str] : label in the z axis
@@ -255,7 +262,7 @@ class Observable:
         if z not in self.labels.keys():
             raise RuntimeError("Z axis label {} not found in observable labels (check with PrintLabels())")
 
-      
+
         xpos = list(self.labels).index(x)
         ypos = list(self.labels).index(y)
         zpos = list(self.labels).index(z)
@@ -268,8 +275,8 @@ class Observable:
 
     def GetRootTH3(self,x,y,z,name=''):
         """
-            Return TH3 scan of two parameters observable 
-            Input  : 
+            Return TH3 scan of two parameters observable
+            Input  :
                 - x [str] : label in the x axis
                 - y [str] : label in the y axis
                 - z [str] : label in the z axis
@@ -311,10 +318,11 @@ class Data:
             Return : None
         """
         self.df = df
+        self.parameters = self.df.columns
 
     def SetParameters(self,parameters):
         """
-            Define the parameters for the scans 
+            Define the parameters for the scans
             Inputs :
                 - parameters [list(str)] : list of strings of parameter names
             Return : None
@@ -355,15 +363,15 @@ class Data:
         return Observable(arr,labels,observable)
 
     @classmethod
-    def load_pickle(cls,path): 
+    def load_pickle(cls,path):
         """
             Instantiate the Data class from a pickle file
-            Input  : 
+            Input  :
                 - path [str] : string of the path to the pickle dataframe file
             Return : Data instance
         """
         if not os.path.exists(path):
-            raise 
+            raise
         df = pd.read_pickle(path)
         return cls(df)
 

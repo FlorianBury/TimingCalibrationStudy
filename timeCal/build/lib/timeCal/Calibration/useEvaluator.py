@@ -111,11 +111,6 @@ class UseEvaluator:
     def _findSigma(graph):
         # TODO : find range of X in which chi2 <= 1
         raise NotImplementedError
-
-        
-        
-
-
 #        graph.Fit("pol2","SQR","",x1,x2)
 #        fit = graph.GetListOfFunctions().FindObject("pol2")
 #        c = fit.GetParameter(0)

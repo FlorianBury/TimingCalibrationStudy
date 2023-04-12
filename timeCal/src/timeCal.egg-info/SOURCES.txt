@@ -10,11 +10,9 @@ src/timeCal.egg-info/entry_points.txt
 src/timeCal.egg-info/requires.txt
 src/timeCal.egg-info/top_level.txt
 src/timeCal/Calibration/__init__.py
-src/timeCal/Calibration/buildEvaluator.py
 src/timeCal/Calibration/evaluators.py
+src/timeCal/Calibration/interpolation.py
 src/timeCal/Calibration/runCalibration.py
-src/timeCal/Calibration/runEvaluator.py
-src/timeCal/Calibration/useEvaluator.py
 src/timeCal/PlotScan/__init__.py
 src/timeCal/PlotScan/data_helper.py
 src/timeCal/PlotScan/generateYaml.py

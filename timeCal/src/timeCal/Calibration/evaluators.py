@@ -2,6 +2,7 @@ import os
 import sys
 import yaml
 import glob
+import math
 import ROOT
 import logging
 import argparse
@@ -24,6 +25,9 @@ from ..PlotScan.data_helper import Observable
 DELTA_COARSE = 1.
 DELTA_FINE   = 0.01
 
+CHI2_1SIGMA_PER_NDOF = {1: 1.0, 2: 2.3, 3: 3.53, 4: 4.72, 5: 5.89, 6: 7.04, 7: 8.18, 8: 9.3, 9: 10.42, 10: 11.54}
+
+
 #*******************************************************#
 #                    Base evaluator                     #
 #*******************************************************#
@@ -43,56 +47,40 @@ class BaseEvaluator:
 
         decimals = lambda x : str(x)[::-1].find('.')
 
+        oneSigNLL = self.getOneSigmaNLL()
+
         # Coarse scan #
         logging.debug(f"Starting coarse scan : [0.,50.] with step {DELTA_COARSE:0.5f}")
         delayCoarse = np.arange(0.,50.,DELTA_COARSE).round(decimals(DELTA_COARSE))
-        chi2Coarse = self.scan(hist,delayCoarse)
-        chi2Coarse -= chi2Coarse.min()
-        # TODO -> scan between 1 and 1 limits in chi2
+        NLLCoarse = self.scan(hist,delayCoarse)
+        NLLCoarse -= NLLCoarse.min()
 
-#        # Get two minimums #
-#        idxMin = min(delayCoarse.shape[0]-2,max(1,chi2Coarse.argmin()))
-#        #idxTwoMins = np.sort(np.argpartition(chi2Coarse,2)[:2])
-#        x1 = delayCoarse[idxMin-1]
-#        x2 = delayCoarse[idxMin]
-#        x3 = delayCoarse[idxMin+1]
-#        y1 = chi2Coarse[idxMin-1]
-#        y2 = chi2Coarse[idxMin]
-#        y3 = chi2Coarse[idxMin+1]
-#        denom = (x1 - x2)*(x1 - x3)*(x2 - x3)
-#        a = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom
-#        b = (x3**2 * (y1 - y2) + x2**2 * (y3 - y1) + x1**2 * (y2 - y3)) / denom
-#        c = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom
-#        if a <= 0.: # parabola should be pointed upwards
-#            xmin = delayCoarse[chi2Coarse.argmin()]
-#        else:
-#            xmin = min(50.,max(0.,-b/(2*a)))
-#
-#        logging.debug(f"Found three points around minimum : [{x1:0.5f},{x2:0.5f},{x3:0.5f}] with values [{y1:0.5f},{y2:0.5f},{y3:0.5f}]")
-#        logging.debug(f"Coarse estimated minimum : {xmin:0.5f}")
+        # Find limits of fine scan #
+        if len(delayCoarse[NLLCoarse<=oneSigNLL]) > 0:
+            delayStart = max(0.,delayCoarse[NLLCoarse<=oneSigNLL].min()-DELTA_COARSE)
+            delayStop  = min(50.,delayCoarse[NLLCoarse<=oneSigNLL].max()+DELTA_COARSE)
+        else:
+            idxMins = np.argpartition(delayCoarse,1)[0:2]
+            delayStart = min(delayCoarse[idxMins])
+            delayStop  = max(delayCoarse[idxMins])
+        if delayStart == delayStop:
+            delayStart = delayCoarse[NLLCoarse.argmin()]-DELTA_COARSE
+            delayStop  = delayCoarse[NLLCoarse.argmin()]+DELTA_COARSE
 
         # Fine scan #
-#        delayStart = max(0.,xmin-DELTA_COARSE)
-#        delayStop  = min(50.,xmin+DELTA_COARSE)
-
-        delayStart = max(0.,delayCoarse[chi2Coarse<=1.].min()-DELTA_COARSE)
-        delayStop  = min(50.,delayCoarse[chi2Coarse<=1.].max()+DELTA_COARSE)
-        if delayStart == delayStop:
-            delayStart = delayCoarse[chi2Coarse.argmin()]-DELTA_COARSE
-            delayStop  = delayCoarse[chi2Coarse.argmin()]+DELTA_COARSE
         logging.debug(f"Starting fine scan : [{delayStart:0.5f},{delayStop:0.5f}] with step {DELTA_FINE:0.5f}")
         delayFine = np.arange(delayStart,delayStop,DELTA_FINE).round(decimals(DELTA_FINE))
-        chi2Fine = self.scan(hist,delayFine)
-        chi2Fine -= chi2Fine.min()
+        NLLFine = self.scan(hist,delayFine)
+        NLLFine -= NLLFine.min()
 
-        gCoarse = ROOT.TGraph(delayCoarse.shape[0],delayCoarse,chi2Coarse)
-        gFine = ROOT.TGraph(delayFine.shape[0],delayFine,chi2Fine)
+        gCoarse = ROOT.TGraph(delayCoarse.shape[0],delayCoarse,NLLCoarse)
+        gFine = ROOT.TGraph(delayFine.shape[0],delayFine,NLLFine)
             
         gCoarse.SetTitle(";Test delay [ns];#chi^{2} value")
         gFine.SetTitle(";Test delay [ns];#chi^{2} value")
-        numerical_min = delayFine[np.argmin(chi2Fine)]
+        numerical_min = delayFine[np.argmin(NLLFine)]
         logging.debug(f"Found minimum at {numerical_min}")
-        x_minus, x_plus = self._findSigma(gFine)
+        x_minus, x_plus = self._findSigma(gFine,oneSigNLL)
         logging.debug(f"Best value : {numerical_min} - {x_minus} + {x_plus}")
         if return_graphs:
             return numerical_min,x_minus,x_plus,gCoarse,gFine
@@ -101,56 +89,39 @@ class BaseEvaluator:
 
 
     @staticmethod
-    def _findSigma(graph):
-        # TODO : find range of X in which chi2 <= 1
-
+    def _findSigma(graph,oneSigNLL):
         x = np.linspace(graph.GetX()[0],graph.GetX()[graph.GetN()-1],10000)
         y = np.array([graph.Eval(xi) for xi in x])
         left_idx  = np.arange(0,np.where(y==y.min())[0][0])
         right_idx = np.arange(np.where(y==y.min())[0][-1],y.shape[0])
 
-        x_left  = x[np.argmin(abs(y[left_idx]-1.))] if left_idx.shape[0]>0 else 0.
-        x_right = x[np.argmin(abs(y[right_idx]-1.)) + right_idx[0]] if right_idx.shape[0]>0 else 0.
+        x_left  = x[np.argmin(abs(y[left_idx]-oneSigNLL))] if left_idx.shape[0]>0 else 0.
+        x_right = x[np.argmin(abs(y[right_idx]-oneSigNLL)) + right_idx[0]] if right_idx.shape[0]>0 else 0.
 
         x_min = x[y.argmin()]
 
         return x_min-x_left,x_right-x_min
 
-#        graph.Fit("pol2","SQR","",x1,x2)
-#        fit = graph.GetListOfFunctions().FindObject("pol2")
-#        c = fit.GetParameter(0)
-#        b = fit.GetParameter(1)
-#        a = fit.GetParameter(2)
-#        f = lambda x : a*x**2+b*x+c
-#        if a <= 0. : 
-#            return None,50.
-#        xmin = -b/(2*a)
-#        ymin = f(xmin)
-#        x1 = (-b-math.sqrt(4*a))/(2*a)
-#        x2 = (-b+math.sqrt(4*a))/(2*a)
-#        assert f(x1)-ymin-1 < 1e-9
-#        assert f(x2)-ymin-1 < 1e-9
-#        sigma = x2-x1
-#        return xmin,sigma
-
-
 
     def scan(self,recoHist,delayRange):
-        raise NotImplementedError
+        raise NotImplemented
+
+    def getOneSigmaNLL(self):
+        raise NotImplemented
 
     #######################################
     #             SAVE PART               #
     #######################################
-    def save(self):
+    def save(self,subdir):
         #Open root file #
-        f = self.__class__.get_evaluator_path(self.params)
+        f = self.__class__.get_evaluator_path(subdir,self.params)
         path = os.path.dirname(f)
         if not os.path.exists(path):
             logging.warning(f'Output path {path} absent, will create it')
             os.makedirs(path)
 
         # Check in case another run is saving the evaluator #
-        if not self.__class__.check_evaluator_file(self.params):
+        if not self.__class__.check_evaluator_file(subdir,self.params):
             with TFileOpen(f,'w') as F:
                 # Save parameters in the file #
                 self._saveParameters(F)
@@ -235,10 +206,10 @@ class BaseEvaluator:
     #              LOAD PART              #
     #######################################
     @classmethod
-    def load(cls,params):
-        f = cls.get_evaluator_path(params)
+    def load(cls,subdir,params):
+        f = cls.get_evaluator_path(subdir,params)
         # Open file #
-        if cls.check_evaluator_file(params):
+        if cls.check_evaluator_file(subdir,params):
             with TFileOpen(f,'r') as F:
                 ## Get parameters #
                 #params = cls.getParameters(F,self.parameters)
@@ -260,16 +231,17 @@ class BaseEvaluator:
     #######################################
 
     @classmethod
-    def get_evaluator_path(cls,params):
+    def get_evaluator_path(cls,subdir,params):
         return os.path.join(getEnv()['paths']['calibration'],
                             'evaluators',
                             cls._evaluatorName,
+                            subdir,
                             "_".join([f"{pName}_{pVal}" for pName,pVal in params.items()]).replace('.','p').replace(' ','_')+'.root')
                             
 
     @classmethod
-    def check_evaluator_file(cls,params):
-        path = cls.get_evaluator_path(params)
+    def check_evaluator_file(cls,subdir,params):
+        path = cls.get_evaluator_path(subdir,params)
         return os.path.exists(path)
 
 
@@ -302,35 +274,39 @@ class MeanEvaluator(BaseEvaluator):
         """
             delayDict [dict] = {delay value [float] : BX ID histogram [TH1F]}
         """
-        mGraph = ROOT.TGraph(len(delayDict))
+        mGraph_nom   = ROOT.TGraph(len(delayDict))
+        mGraph_error = ROOT.TGraph(len(delayDict))
         for i,(delay,hist) in enumerate(sorted(delayDict.items())):
-            mGraph.SetPoint(i,delay,hist.GetMean())
+            mean = hist.GetMean() + 0.5 # shift of 0.5 to center the bins
+            error = hist.GetMeanError()
+            mGraph_nom.SetPoint(i,delay,mean)
+            mGraph_error.SetPoint(i,delay,hist.GetMeanError())
 
-        objDict = {"mean": mGraph}
+        objDict = {"mean": mGraph_nom,"mean_error":mGraph_error}
 
         return objDict
 
     def saveObjects(self,F):
-        self.objDict['mean'].Write('mean')
+        for name,obj in self.objDict.items():
+            self.objDict[name].Write(name)
 
     @staticmethod
     def loadObjects(F):
-        return {'mean': F.Get('mean')}
+        return {'mean': deepcopy(F.Get('mean')),'mean_error': deepcopy(F.Get('mean_error'))}
+
+    def getOneSigmaNLL(self):
+        return 1.
 
 
     def scan(self,recoHist,delayRange):
-        mGraph = self.objDict['mean']
-        chi2 = []
-        mean_reco = recoHist.GetMean()
+        NLLs = []
+        mean_reco = recoHist.GetMean() + 0.5
         mean_reco_err = recoHist.GetMeanError()
-        if mean_reco_err == 0.:
-            mean_reco_err = 1.
         for i in range(delayRange.shape[0]):
-            mean_true = mGraph.Eval(delayRange[i])
-            chi2.append((mean_reco-mean_true)**2/mean_reco_err)
-        return np.array(chi2)
-
-
+            mean_true = self.objDict['mean'].Eval(delayRange[i])
+            mean_true_error = self.objDict['mean_error'].Eval(delayRange[i])
+            NLLs.append(abs(mean_reco-mean_true)/math.sqrt(mean_reco_err**2+mean_true_error**2+1e-20))
+        return np.array(NLLs)
     
     @classmethod
     def _editIllustrationPlot(cls,graph):
@@ -350,138 +326,6 @@ class MeanEvaluator(BaseEvaluator):
         return cls._editIllustrationPlot(graph)
         
 
-
-#*******************************************************#
-#                  Morphing evaluator                   #
-#*******************************************************#
-class MorphingEvaluator(BaseEvaluator):
-    ROOT.RooMsgService.instance().setGlobalKillBelow(ROOT.RooFit.WARNING)
-
-    _evaluatorName = 'Morphing'
-
-    def __init__(self,params,objDict):
-        super().__init__(params,objDict)
-        workspace       = self.objDict['workspace']
-        self.delayVar   = workspace.var("delayVar")
-        self.bxidVar    = workspace.var("bxidVar")
-        self.morphing   = workspace.pdf("morph")
-
-        self.cache_hist = {}
-
-        self.morphing.useHorizontalMorphing(True)
-
-        # Get Bx binning info for the histogram creation #
-        bxIdBinning = self.bxidVar.GetBinning()
-        self.binCenters = []
-        self.binEdges = []
-        for ibin in range(bxIdBinning.numBins()):
-            self.binCenters.append(bxidBinning.binCenter(ibin))
-            self.binEdges.append(bxidBinning.binLow(ibin))
-        self.binEdges.append(bxidBinning.binHigh(bxidBinning.numBins() - 1))
-
-        self.normSet = ROOT.RooArgSet(self.bxidVar)
-            
-    @staticmethod
-    def makeEvaluator(delayDict):
-        """
-            delayDict [dict] = {delay value [float] : BX ID histogram [TH1F]}
-        """
-
-        bxidVar = ROOT.RooRealVar("bxidVar","bxidVar",-5.5,5.5)
-        delayVar = ROOT.RooRealVar("delayVar","delayVar",min(list(delayDict.keys())),max(list(delayDict.keys())))
-        bxidVar.setBins(11)
-        delayVar.setBins(len(delayDict))
-        paramVec = ROOT.TVectorD(len(delayDict))
-
-        listOfMorphs = ROOT.RooArgList("listOfMorphs")
-        listPdfs = []
-        listHist = []
-
-        for i,delay in enumerate(sorted(list(delayDict.keys()))):
-            h = delayDict[delay]
-            paramVec[i] = delay 
-            # Delta for convergence #
-            h.Scale(1./h.Integral())
-            delta = 1e-3
-            idx = np.array([h.GetBinContent(i) for i in range(1,h.GetNbinsX()+1)]).argmax()+1
-            if idx > 0:
-                h.SetBinContent(int(idx-1),h.GetBinContent(int(idx-1))+delta)
-            if idx > 1:
-                h.SetBinContent(int(idx-2),h.GetBinContent(int(idx-2))+delta)
-            if idx < h.GetNbinsX():
-                h.SetBinContent(int(idx+1),h.GetBinContent(int(idx+1))+delta)
-            if idx < h.GetNbinsX()-1:
-                h.SetBinContent(int(idx+2),h.GetBinContent(int(idx+2))+delta)
-
-            hD = ROOT.RooDataHist(h.GetName()+"DataHist",h.GetName()+"DataHist",ROOT.RooArgList(bxidVar),h)
-            listHist.append(h)
-            hPdf = ROOT.RooHistPdf(h.GetName()+"Pdf",h.GetName()+"Pdf",ROOT.RooArgSet(bxidVar),hD)
-            listPdfs.append(deepcopy(hPdf))
-
-        for pdf in listPdfs:
-            listOfMorphs.add(pdf)
-
-        morph = ROOT.RooMomentMorph('morph','morph',
-                                    delayVar,
-                                    ROOT.RooArgList(bxidVar),
-                                    listOfMorphs,
-                                    paramVec,
-                                    ROOT.RooMomentMorph.Linear)
-                                    #ROOT.RooMomentMorph.SineLinear)
-
-        h2D = morph.createHistogram("test", 
-                                    bxidVar, 
-                                    ROOT.RooFit.Binning(11),
-                                    ROOT.RooFit.YVar(delayVar))
-
-        w = ROOT.RooWorkspace("MorphWorkspace","MorphWorkspace")
-        getattr(w,'import')(morph)
-
-        objDict = {"Shape2D": h2D,'workspace':w}
-
-        return objDict
-            
-    def saveObjects(self,F):
-        self.objDict['Shape2D'].Write('Shape2D')
-        self.objDict['workspace'].writeToFile(F.GetName(),True) # True = recreate
-
-    @staticmethod
-    def loadObjects(F):
-        return {'workspace': F.Get("MorphWorkspace")}
-
-
-    def scan(self,recoHist,delayRange):
-        chi2 = []
-        count = 0
-        # Loop over the delay range required #
-        for i in range(delayRange.shape[0]):
-            # Check cache #
-            if delayRange[i] not in self.cache_hist.keys():
-                trueHist = self._makeBXhistogram(delayRange[i]) #self.morphing.createHistogram("trueHist{:.5f}".format(delayRange[i]),self.bxidVar)
-                self.cache_hist[delayRange[i]] = trueHist
-                count += 1
-            else:
-                trueHist = self.cache_hist[delayRange[i]]
-            chi2.append(recoHist.Chi2Test(trueHist,"WW NORM CHI2"))
-
-        # Debug printout of the cache size #
-        logging.debug('In dict {}, new elements {} / {}'.format(len(self.cache_hist),count,delayRange.shape[0]))
-        size = sys.getsizeof(self.cache_hist)
-        for k,v in self.cache_hist.items():
-            size += sys.getsizeof(k)
-            size += sys.getsizeof(v)
-        logging.debug('Size = ',size/1e6)
-        return np.array(chi2)
-
-    def _makeBXhistogram(self,delay):
-        self.delayVar.setVal(delayRange[i])
-        trueHist = ROOT.TH1D(f"trueHist{delay:.5f}",f"trueHist{delay:.5f}",len(self.binCenters),np.array(self.binEdges))
-        for ibi,binCenter in enumerate(self.binCenters,1):
-            self.bxidVar.SetVal(binCenter)
-            trueHist.SetBinContent(ibin,morphing.getVal(self.normSet))
-        
-        return trueHist
-  
 #*******************************************************#
 #           Linear interpolation evaluator              #
 #*******************************************************#
@@ -507,11 +351,36 @@ class LinearInterpolationEvaluator(BaseEvaluator):
             if key.GetName().startswith('hist'):
                 name = key.GetName()
                 h = F.Get(key.GetName())
-                objDict['delayDict'][float(name.replace('hist_',''))] = h
+                objDict['delayDict'][float(name.replace('hist_',''))] = deepcopy(h)
         return objDict
 
+    @staticmethod
+    def _getNLL(f,d):
+        """
+            f = expected counts histogram
+            d = measured counts histogram
+        """
+        NLL_Poisson = 0.
+        NLL_Gaussian = 0.
+        epsilon = 1e-9
+        for i in range(1,f.GetNbinsX()+1):
+            fi = f.GetBinContent(i)
+            di = d.GetBinContent(i)
+            #if fi > 0:# and di > 0:
+            NLL_Poisson += 2 * (fi-di + di* math.log((di+epsilon)/(fi+epsilon)))
+            NLL_Gaussian += (di-fi)**2/(fi+epsilon)
+        return NLL_Poisson,NLL_Gaussian
+                
+
+    def getOneSigmaNLL(self):
+        return 1.
+        #ndof = sum([h.GetBinContent(i)>0 for i in range(1,h.GetNbinsX()+1)]) - 1 
+        #if ndof not in CHI2_1SIGMA_PER_NDOF.keys():
+        #    raise RuntimeError(f'Ndof {ndof} not computed')
+        #return CHI2_1SIGMA_PER_NDOF[ndof]
+
     def scan(self,recoHist,delayRange):
-        chi2 = []
+        NLLs = []
         # Loop over the delay range required #
         for delay in delayRange:
             if delay in self.objDict['delayDict'].keys():
@@ -542,8 +411,17 @@ class LinearInterpolationEvaluator(BaseEvaluator):
             #print ('------')
             #print ([trueHist.GetBinContent(i) for i in range(1,12)])
             #print (delay,recoHist.Chi2Test(trueHist,"UU CHI2"))
-            chi2.append(recoHist.Chi2Test(trueHist,"UU CHI2/NDF"))
-        return np.array(chi2)
+            #NLLs.append(recoHist.Chi2Test(trueHist,"UU CHI2/NDF"))
+            NLL_Poisson,NLL_Gaussian = self._getNLL(trueHist,recoHist)
+#            if 2*abs(NLL_Poisson-NLL_Gaussian) / (NLL_Poisson+NLL_Gaussian + 1e-9) > 0.01:
+#                logging.warning(f'In {self.__class__.__name__} scan, NLL(Poisson) = {NLL_Poisson} != NLL(Gaussian) = {NLL_Gaussian} -> Approximation might not stand')
+            #print (delay,NLL_Poisson,NLL_Gaussian,2*recoHist.Chi2Test(trueHist,"UU CHI2"))
+            NLLs.append(NLL_Poisson)
+            #NLLs.append(NLL_Gaussian)
+            #NLLs.append(2*recoHist.Chi2Test(trueHist,"UU CHI2/NDF"))
+        #embed()
+
+        return np.array(NLLs)
 
     @classmethod
     def _make2DPlot(cls,delayDict):

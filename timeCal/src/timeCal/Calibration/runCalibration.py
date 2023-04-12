@@ -26,6 +26,7 @@ from dataclasses import dataclass,field
 
 @dataclass
 class Scenario:
+    subdir    : str  = ""                               # Name of subdirectory to find/save evaluators and plots
     paramNames: dict = None                             # Link between param Names and names for plots
     testParams: dict = None                             # Values of the parameters of the test
     recoParams: dict = None                             # Values of the parameters of the evaluator
@@ -50,15 +51,15 @@ def RunEvaluator(scObj):
     with TFileOpen(f,'r') as F:
         scObj.recoParams = deepcopy(evaluatorCls.getParameters(F,scObj.paramNames))
         # If evaluator exists, load it #
-        if evaluatorCls.check_evaluator_file(scObj.recoParams):
-            logging.info(f'Found evaluator {evaluatorCls.get_evaluator_path(scObj.recoParams)}, will load it')
-            scObj.evaluator = evaluatorCls.load(scObj.recoParams)
+        if evaluatorCls.check_evaluator_file(scObj.subdir,scObj.recoParams):
+            logging.info(f'Found evaluator {evaluatorCls.get_evaluator_path(scObj.subdir,scObj.recoParams)}, will load it')
+            scObj.evaluator = evaluatorCls.load(scObj.subdir,scObj.recoParams)
             logging.info('... done')
         # Else, build it #
         else:
-            logging.info(f'Evaluator {evaluatorCls.get_evaluator_path(scObj.recoParams)} not found, will build it')
+            logging.info(f'Evaluator {evaluatorCls.get_evaluator_path(scObj.subdir,scObj.recoParams)} not found, will build it')
             scObj.evaluator = evaluatorCls.build(F,scObj.recoConfig['hists'],scObj.paramNames)
-            scObj.evaluator.save()
+            scObj.evaluator.save(scObj.subdir)
             logging.info('... done')
 
     for testDelay,hist in scObj.testHists.items():
@@ -104,8 +105,8 @@ def RunEvaluator(scObj):
     return scObj
 
 class RunCalibration:
-    def __init__(self,suffix,parameters,scenarios,jobs=None,**kwargs):
-        self.suffix = suffix
+    def __init__(self,subdir,parameters,scenarios,jobs=None,**kwargs):
+        self.subdir = subdir
         self.paramNames = parameters
         self.scenarios = scenarios
         self.jobs = jobs
@@ -145,10 +146,11 @@ class RunCalibration:
                 params = deepcopy(Evaluators.BaseEvaluator.getParameters(F,self.paramNames))
             # Instantiate the evaluator runs #
             for recoConfig in scenario['evaluators']:
-                scObj = Scenario(paramNames   = self.paramNames,
-                                   testParams   = params,
-                                   recoConfig   = recoConfig,
-                                   testHists    = histDict)
+                scObj = Scenario(subdir       = self.subdir,
+                                 paramNames   = self.paramNames,
+                                 testParams   = params,
+                                 recoConfig   = recoConfig,
+                                 testHists    = histDict)
                 self.scObjs.append(scObj)
 
         # Start the scenario running #
@@ -167,7 +169,7 @@ class RunCalibration:
 
     def producePlots(self,scObj):
         # Make PDF name #
-        dirName = os.path.join(getEnv()['paths']['calibration'],'plots',self.suffix)
+        dirName = os.path.join(getEnv()['paths']['calibration'],'plots',self.subdir)
         if not os.path.exists(dirName):
             os.makedirs(dirName)
 
@@ -201,8 +203,8 @@ class RunCalibration:
 
         # Print reco versus true delay #
         C.Clear()
-        scObj.graph.GetHistogram().GetXaxis().SetRangeUser(-1,51)
-        scObj.graph.GetHistogram().GetYaxis().SetRangeUser(-1,51)
+        scObj.graph.GetHistogram().GetXaxis().SetRangeUser(-1.,51.)
+        scObj.graph.GetHistogram().GetYaxis().SetRangeUser(-1.,51.)
         scObj.graph.GetHistogram().SetTitle("")
         scObj.graph.GetHistogram().GetXaxis().SetTitle("True delay [ns]")
         scObj.graph.GetHistogram().GetYaxis().SetTitle("Reco delay [ns]")
@@ -264,6 +266,7 @@ class RunCalibration:
                             max(list(scObj.testIllust.GetY())+list(scObj.recoIllust.GetY())))
                 scObj.testIllust.SetLineColor(ROOT.kGreen+2)
                 scObj.recoIllust.SetLineColor(ROOT.kBlue+2)
+                scObj.recoIllust.SetLineStyle(2)
                 scObj.testIllust.Draw()
                 scObj.recoIllust.Draw('same')    
                 legend.Draw()
@@ -272,11 +275,11 @@ class RunCalibration:
                 mainpad.Divide(2)
                 mainpad.Draw()
                 pad1 = mainpad.cd(1)
-                pad1.SetLogz()
+                #pad1.SetLogz()
                 scObj.testIllust.SetTitle('Test evaluator')
                 scObj.testIllust.Draw('colz')
                 pad2 = mainpad.cd(2)
-                pad2.SetLogz()
+                #pad2.SetLogz()
                 scObj.recoIllust.SetTitle('Reco evaluator')
                 scObj.recoIllust.Draw('colz')
                 C.cd()
@@ -303,25 +306,26 @@ class RunCalibration:
             c1.SetLogy(True)
             scObj.coarseScan[testDelay].SetTitle(f"Coarse scan (true delay = {testDelay});Delay [ns];-2#Deltaln(L)")
             scObj.coarseScan[testDelay].GetHistogram().GetYaxis().SetRangeUser(
-                    min(list(scObj.coarseScan[testDelay].GetY())) * 0.1,
-                    max(list(scObj.coarseScan[testDelay].GetY())) * 10)
+                    1e-3,
+                    max(list(scObj.coarseScan[testDelay].GetY())) * 2)
             scObj.coarseScan[testDelay].Draw()
             # Fine scan #
             c2 = C.cd(2)
             scObj.fineScan[testDelay].SetTitle(f"Fine scan (true delay = {testDelay});Delay [ns];-2#Deltaln(L)")
             fineX = np.array(scObj.fineScan[testDelay].GetX())
             fineY = np.array(scObj.fineScan[testDelay].GetY())
+            y_1sig = scObj.evaluator.getOneSigmaNLL()
             scObj.fineScan[testDelay].GetHistogram().GetXaxis().SetRangeUser(
-                        fineX[fineY<=2.].min(),
-                        fineX[fineY<=2.].max())
-            scObj.fineScan[testDelay].GetHistogram().GetYaxis().SetRangeUser(0.,2.)
+                        fineX[fineY<=y_1sig*3].min(),
+                        fineX[fineY<=y_1sig*3].max())
+            scObj.fineScan[testDelay].GetHistogram().GetYaxis().SetRangeUser(0.,y_1sig*3)
             scObj.fineScan[testDelay].Draw()
             # Draw 1 sigma line #
             lines = [
-                ROOT.TLine(recoDelay-recoErrors[0],1.,recoDelay+recoErrors[1],1.),
-                ROOT.TLine(recoDelay,0.,recoDelay,1.),
-                ROOT.TLine(recoDelay-recoErrors[0],0.,recoDelay-recoErrors[0],1.),
-                ROOT.TLine(recoDelay+recoErrors[1],0.,recoDelay+recoErrors[1],1.)]
+                ROOT.TLine(recoDelay-recoErrors[0],y_1sig,recoDelay+recoErrors[1],y_1sig),
+                ROOT.TLine(recoDelay,0.,recoDelay,y_1sig),
+                ROOT.TLine(recoDelay-recoErrors[0],0.,recoDelay-recoErrors[0],y_1sig),
+                ROOT.TLine(recoDelay+recoErrors[1],0.,recoDelay+recoErrors[1],y_1sig)]
             for line in lines:
                 line.SetLineColor(ROOT.kRed+1)
                 line.Draw()

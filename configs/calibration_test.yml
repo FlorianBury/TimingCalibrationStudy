@@ -1,5 +1,5 @@
-template_dir: &template_dir /home/ucl/cp3/fbury/scratch/UpgradeCalibrations/slurm/production/PUScan_N_1000_2022-03-01_23-11-48/output/
-suffix: PU_scan_{mode}
+template_dir: &template_dir /home/ucl/cp3/fbury/scratch/UpgradeCalibrations/slurm/production/ttbar_noPu_2023-01-12_17-55-38/output/
+subdir: ttbar_no_PU_scan_{mode}
 
 parameters:
   N                 : Events
@@ -9,17 +9,81 @@ parameters:
 
 scenarios:
   - test: 
-      file: BXHistScan_N_1000_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
+      file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
       dir: *template_dir
       hists: !include hists.yml
     evaluators:
       - method: MeanEvaluator
-        file: BXHistScan_N_1000_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
         dir: *template_dir
         hists: !include hists.yml
-      - method: MorphingEvaluator
-        file: BXHistScan_N_1000_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
+      - method: MeanEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_1p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: MeanEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_2p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: MeanEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_3p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: LinearInterpolationEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: LinearInterpolationEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_1p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: LinearInterpolationEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_2p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: LinearInterpolationEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_3p0_harvested.root
         dir: *template_dir
         hists: !include hists.yml
 
-        
+
+  - test: 
+      file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_3p0_harvested.root
+      dir: *template_dir
+      hists: !include hists.yml
+    evaluators:
+      - method: MeanEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: MeanEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_1p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: MeanEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_2p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: MeanEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_3p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: LinearInterpolationEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_0p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: LinearInterpolationEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_1p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: LinearInterpolationEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_2p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+      - method: LinearInterpolationEvaluator
+        file: BXHistScan_subdet_ALL_N_100_pt_2p0_threshold_5000_thresholdsmearing_0p0_tofsmearing_3p0_harvested.root
+        dir: *template_dir
+        hists: !include hists.yml
+
+
+       
